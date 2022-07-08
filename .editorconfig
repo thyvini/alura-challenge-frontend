@@ -1,0 +1,4 @@
+﻿root=true
+
+[*.fs]
+fsharp_single_argument_web_mode=true
