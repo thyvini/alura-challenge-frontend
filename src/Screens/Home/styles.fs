@@ -1,7 +1,7 @@
 ﻿module App.Screens.Home
 
+open App
 open Feliz
-open Feliz.style
 open App.Design
 open Fss
 open Fss.Types
@@ -9,25 +9,13 @@ open Fss.Types
 open type style
 
 let private container =
-    [ BackgroundColor.hex (Colors.Blue)
-      TextAlign.center
+    [ TextAlign.center
       Color.white
       MinWidth.value (vw 100)
       MinHeight.value (vh 100) ]
 
-let private vetor1 =
-    [ Position.absolute
-      Right.value (px 0)
-      Top.value (Percent 50)
-      Transform.value [
-          Transform.translateY (Percent -50)
-      ] ]
-
 let private logo =
-    [ MarginTop.value (px 0)
-      MarginBottom.value (px 0)
-      MarginLeft.auto
-      MarginRight.auto
+    [ yield! GlobalStyles.MarginAuto
       Display.block
       PaddingTop.value (px 40) ]
 
@@ -44,17 +32,33 @@ let private content =
       Margin.value (px 0, px 56)
       PaddingTop.value (px 16) ]
 
+let private buttonBox =
+    [ Display.flex
+      FlexDirection.column
+      yield! GlobalStyles.MarginAuto
+      Width.value (px 180)
+      Height.value (px 96)
+      MarginTop.value (px 24)
+      JustifyContent.spaceBetween ]
+
 let private button =
-    [ width 180
-      height 40
-      backgroundColor Colors.Coral
-      borderRadius 6
-      custom (":hover", (margin 0)) ]
+    [ yield! GlobalStyles.Button
+      Filter.dropShadow (px 2, px 2, px 4, (rgba 0 0 0 0.25)) ]
+
+let private illustration =
+    [ Position.absolute
+      Bottom.value (px 75)
+      Left.value (Percent 45)
+      ZIndex.value -1
+      Transform.value [
+          Transform.translateX (Percent -50)
+      ] ]
 
 let styles =
     {| container = container
-       vetor1 = vetor1
        logo = logo
        title = title
        content = content
-       button = button |}
+       buttonBox = buttonBox
+       button = button
+       illustration = illustration |}

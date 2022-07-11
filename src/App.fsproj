@@ -5,10 +5,13 @@
     <ItemGroup>
         <None Include="index.html" />
         <Compile Include="Design.fs" />
+        <Compile Include="GlobalStyles.fs" />
         <Compile Include="Components\Header\styles.fs" />
         <Compile Include="Components\Header\index.fs" />
         <Compile Include="Components\Footer\styles.fs" />
         <Compile Include="Components\Footer\index.fs" />
+        <Compile Include="Components\Scaffold\styles.fs" />
+        <Compile Include="Components\Scaffold\index.fs" />
         <Compile Include="Screens\Home\styles.fs" />
         <Compile Include="Screens\Home\index.fs" />
         <Compile Include="Main.fs" />

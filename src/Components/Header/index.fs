@@ -1,6 +1,7 @@
 ﻿module App.Components
 
 open Feliz
+open Fss.Feliz
 
 open type Html
 open type prop
@@ -8,25 +9,22 @@ open type prop
 let styles = Components.Header.styles
 
 [<ReactComponent>]
-let Header estaLogado =
+let Header isLogged =
     header [
-        style styles.container
+        fss styles.container
         children [
             div [
-                style styles.backImage
-            ]
-            div [
-                style styles.navbarContainer
+                fss styles.navbarContainer
                 children [
                     nav [
-                        style styles.navbar
+                        fss styles.navbar
                         children [
                             a [
                                 href "/"
                                 children [
                                     img [
                                         src "img/Casa.svg"
-                                        style styles.navLinkImage
+                                        fss styles.navLinkImage
                                     ]
                                 ]
                             ]
@@ -35,20 +33,20 @@ let Header estaLogado =
                                 children [
                                     img [
                                         src "img/Mensagens.svg"
-                                        style styles.navLinkImage
+                                        fss styles.navLinkImage
                                     ]
                                 ]
                             ]
                         ]
                     ]
-                    if estaLogado then
+                    if isLogged then
                         a [
-                            style styles.button
+                            fss styles.button
                             role "button"
                             tabIndex 0
                             children [
                                 img [
-                                    style styles.buttonImage
+                                    fss styles.buttonImage
                                     src "img/Usuário.png"
                                 ]
                             ]

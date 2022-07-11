@@ -7,4 +7,6 @@ let Colors =
        Cream = "#FCF0E3"
        DarkGray = "#737380"
        Gray = "#BCBCBC"
-       LightGray = "#F6F6F6" |}
+       LightGray = "#F6F6F6"
+       White = "#FFFFFF" |}
+ 

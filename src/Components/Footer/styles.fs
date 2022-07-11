@@ -1,26 +1,24 @@
 ﻿module App.Components.Footer
 
 open App.Design
-open Feliz
-open Feliz.style
+open Fss
+open Fss.Types
 
-open type style
-open type length
+let private footer =
+    [ MaxWidth.value (vw 100)
+      Height.value (px 105)
+      Position.relative
+      Bottom.value (px 0)
+      TextAlign.center
+      BackgroundColor.hex Colors.Green ]
 
-let footer =
-    [ width (percent 100)
-      height 105
-      position.absolute
-      bottom 0
-      textAlign.center
-      backgroundColor Colors.Green ]
-
-let text = [
-    position.relative
-    top 50
-    transform.translateY (-50 |> percent)
-    color color.white
-]
-
+let private text =
+    [ Position.relative
+      Top.value (Percent 50)
+      Color.white
+      Transform.value [
+          Transform.translateY (Percent -50)
+      ] ]
+    
 let styles =
     {| footer = footer; text = text |}

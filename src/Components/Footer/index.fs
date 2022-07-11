@@ -1,6 +1,7 @@
 ﻿module App.Components
 
 open Feliz
+open Fss
 open type Html
 open type prop
 
@@ -9,10 +10,10 @@ let styles = App.Components.Footer.styles
 [<ReactComponent>]
 let Footer () =
     footer [
-        style styles.footer
+        fss styles.footer
         children [
             p [
-                style styles.text
+                fss styles.text
                 text "2022 - Desenvolvido por Alura."
             ]
         ]

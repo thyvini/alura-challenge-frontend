@@ -11,31 +11,43 @@ let styles = App.Screens.Home.styles
 
 [<ReactComponent>]
 let Home () =
-    div [
-        fss styles.container
-        children [
-            Header false
-            img [
-                fss styles.vetor1
-                src "img/Forma 2.svg"
-            ]
-            img [
-                src "img/Logo.png"
-                fss styles.logo
-            ]
-            h1 [
-                fss styles.title
-                text "Boas-vindas!"
-            ]
-            main [
-                p [
-                    fss styles.content
-                    text "Que tal mudar sua vida adotando seu novo melhor amigo? Vem com a gente!"
+    HomeScaffold [
+        div [
+            fss styles.container
+            children [
+                img [
+                    src "img/Logo.png"
+                    srcset "img/Logo.png 1x, img/Logo@2x.png 2x, img/Logo@3x.png 3x"
+                    fss styles.logo
                 ]
-                a [
-                    style []
+                h1 [
+                    fss styles.title
+                    text "Boas-vindas!"
+                ]
+                main [
+                    p [
+                        fss styles.content
+                        text "Que tal mudar sua vida adotando seu novo melhor amigo? Vem com a gente!"
+                    ]
+                    div [
+                        fss styles.buttonBox
+                        children [
+                            a [
+                                fss styles.button
+                                text "Já tenho conta"
+                            ]
+                            a [
+                                fss styles.button
+                                text "Quero me cadastrar"
+                            ]
+                        ]
+                    ]
+                    img [
+                        src "img/Ilustração 1.png"
+                        srcset "img/Ilustração%201.png 1x, img/Ilustração%201@2x.png 2x, img/Ilustração%201@3x.png 3x"
+                        fss styles.illustration
+                    ]
                 ]
             ]
-            Footer()
         ]
     ]
