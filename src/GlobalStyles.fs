@@ -41,3 +41,19 @@ let Input =
       LineHeight.value (px 16)
       TextAlign.center
       BoxShadow.value (px 0, px 2, px 2, rgba 0 0 0 0.15) ]
+
+let BlueLogo =
+    [ yield! MarginAuto
+      MarginTop.value (px 20)
+      MarginBottom.value (px 24)
+      Display.block ]
+
+let Description =
+    [ yield! MarginAuto
+      TextAlign.center
+      Color.hex Colors.Blue
+      OverflowWrap.normal
+      FontSize.value (px 16)
+      LineHeight.value (px 21)
+      MarginBottom.value (px 24)
+      MaxWidth.value (px 300) ]

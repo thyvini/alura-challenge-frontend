@@ -15,6 +15,7 @@ let Router () =
             match currentUrl with
             | [] -> Screens.Initial()
             | ["cadastro"] -> Screens.SignUp()
+            | ["login"] -> Screens.SignIn()
             | _ -> ()
         ]
     ]

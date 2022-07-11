@@ -16,10 +16,13 @@
         <Compile Include="Components\StringFormInput\index.fs" />
         <Compile Include="Components\PasswordFormInput\styles.fs" />
         <Compile Include="Components\PasswordFormInput\index.fs" />
+        <Compile Include="Components\BlueLogo\index.fs" />
         <Compile Include="Screens\Initial\styles.fs" />
         <Compile Include="Screens\Initial\index.fs" />
         <Compile Include="Screens\SignUp\styles.fs" />
         <Compile Include="Screens\SignUp\index.fs" />
+        <Compile Include="Screens\SignIn\styles.fs" />
+        <Compile Include="Screens\SignIn\index.fs" />
         <Compile Include="Router.fs" />
         <Compile Include="Main.fs" />
     </ItemGroup>

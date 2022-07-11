@@ -5,7 +5,7 @@ open Fss
 open type Html
 open type prop
 
-let styles = Components.StringFormInput.styles
+let private styles = Components.StringFormInput.styles
 
 [<ReactComponent>]
 let StringFormInput

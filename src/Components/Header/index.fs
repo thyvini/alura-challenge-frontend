@@ -7,7 +7,7 @@ open Fss.Feliz
 open type Html
 open type prop
 
-let styles = Components.Header.styles
+let private styles = Components.Header.styles
 
 [<ReactComponent>]
 let Header isLogged =

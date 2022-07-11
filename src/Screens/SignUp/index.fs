@@ -43,16 +43,9 @@ let SignUp () =
         div [
             fss styles.container
             children [
-                img [
-                    src "img/Logo2.png"
-                    srcset
-                        "img/Logo2.png 1x,
-                        img/Logo2@2x.png 2x,
-                        img/Logo2@3x.png 3x"
-                    fss styles.logo
-                ]
+                BlueLogo()
                 p [
-                    fss styles.description
+                    fss GlobalStyles.Description
                     children [
                         Html.text "Ainda não tem cadastro?"
                         Html.br []

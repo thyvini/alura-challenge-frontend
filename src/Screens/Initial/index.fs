@@ -8,7 +8,7 @@ open Fss.Feliz
 open type Html
 open type prop
 
-let styles = App.Screens.Initial.styles
+let private styles = App.Screens.Initial.styles
 
 [<ReactComponent>]
 let Initial () =

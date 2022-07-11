@@ -5,7 +5,7 @@ open Fss
 open type Html
 open type prop
 
-let styles = App.Components.Footer.styles
+let private styles = App.Components.Footer.styles
 
 [<ReactComponent>]
 let Footer () =

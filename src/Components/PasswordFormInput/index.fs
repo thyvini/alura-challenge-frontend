@@ -6,7 +6,7 @@ open Fss
 open type Html
 open type prop
 
-let styles =
+let private styles =
     Components.PasswordFormInput.styles
 
 [<ReactComponent>]

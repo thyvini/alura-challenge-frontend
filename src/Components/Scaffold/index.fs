@@ -14,7 +14,7 @@ type VectorPosition =
     | VectorRight
     | VectorNone
 
-let styles = Scaffold.styles
+let private styles = Scaffold.styles
 
 [<ReactComponent>]
 let Scaffold
