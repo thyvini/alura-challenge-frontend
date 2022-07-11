@@ -1,8 +1,7 @@
-﻿module App.Screens.Home
+﻿module App.Screens.Initial
 
 open App
 open Feliz
-open App.Design
 open Fss
 open Fss.Types
 

@@ -1,6 +1,7 @@
 ﻿module App.Components
 
 open Feliz
+open Feliz.Router
 open Fss.Feliz
 
 open type Html
@@ -20,7 +21,7 @@ let Header isLogged =
                         fss styles.navbar
                         children [
                             a [
-                                href "/"
+                                href (Router.format "")
                                 children [
                                     img [
                                         src "img/Casa.svg"
@@ -29,7 +30,7 @@ let Header isLogged =
                                 ]
                             ]
                             a [
-                                href "/mensagem"
+                                href (Router.format "mensagem")
                                 children [
                                     img [
                                         src "img/Mensagens.svg"

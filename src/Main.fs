@@ -7,4 +7,4 @@ open Fable.Core.JsInterop
 
 importSideEffects "./styles/global.scss"
 
-ReactDOM.render (Screens.Home(), document.getElementById "feliz-app")
+ReactDOM.render (React.strictMode [ Router() ], document.getElementById "feliz-app")

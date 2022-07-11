@@ -14,15 +14,15 @@ type VectorPosition =
     | VectorRight
     | VectorNone
 
-let styles = Components.Scaffold.styles
+let styles = Scaffold.styles
 
 [<ReactComponent>]
-let inline Scaffold
+let Scaffold
     (backgroundColor: string)
     (hasPaws: bool)
     (vectorPosition: VectorPosition)
     (isLogged: bool)
-    (children: ReactElement list)
+    (children: ReactElement)
     =
     div [
         fss (styles.container backgroundColor)
@@ -34,6 +34,11 @@ let inline Scaffold
                         src "img/Forma 1.svg"
                         fss styles.vector1
                     ]
+                    if hasPaws then
+                        img [
+                            src "img/Patas.svg"
+                            fss styles.paws
+                        ]
                     match vectorPosition with
                     | VectorLeft ->
                         img [
@@ -57,8 +62,10 @@ let inline Scaffold
         ]
     ]
 
-let inline HomeScaffold children =
+[<ReactComponent>]
+let InitialScreenScaffold children =
     Scaffold Colors.Blue false VectorRight false children
     
-let inline UserFormScaffold children =
+[<ReactComponent>]
+let UserFormScaffold children =
     Scaffold Colors.White true VectorLeft false children

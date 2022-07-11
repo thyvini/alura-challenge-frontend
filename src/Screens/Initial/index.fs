@@ -2,22 +2,26 @@
 
 open Feliz
 open App.Components
+open Feliz.Router
 open Fss.Feliz
 
 open type Html
 open type prop
 
-let styles = App.Screens.Home.styles
+let styles = App.Screens.Initial.styles
 
 [<ReactComponent>]
-let Home () =
-    HomeScaffold [
+let Initial () =
+    InitialScreenScaffold(
         div [
             fss styles.container
             children [
                 img [
                     src "img/Logo.png"
-                    srcset "img/Logo.png 1x, img/Logo@2x.png 2x, img/Logo@3x.png 3x"
+                    srcset
+                        "img/Logo.png 1x,
+                        img/Logo@2x.png 2x,
+                        img/Logo@3x.png 3x"
                     fss styles.logo
                 ]
                 h1 [
@@ -34,20 +38,25 @@ let Home () =
                         children [
                             a [
                                 fss styles.button
+                                href (Router.format "login")
                                 text "Já tenho conta"
                             ]
                             a [
                                 fss styles.button
+                                href (Router.format "cadastro")
                                 text "Quero me cadastrar"
                             ]
                         ]
                     ]
                     img [
                         src "img/Ilustração 1.png"
-                        srcset "img/Ilustração%201.png 1x, img/Ilustração%201@2x.png 2x, img/Ilustração%201@3x.png 3x"
+                        srcset
+                            "img/Ilustração%201.png 1x,
+                            img/Ilustração%201@2x.png 2x,
+                            img/Ilustração%201@3x.png 3x"
                         fss styles.illustration
                     ]
                 ]
             ]
         ]
-    ]
+    )

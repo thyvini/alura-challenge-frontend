@@ -18,5 +18,26 @@ let Button =
       FontWeight.value 600
       FontStyle.normal
       LineHeight.value (px 24)
+      Color.white
+      TextDecoration.none
+      Border.none
       BackgroundColor.value (hex Colors.Coral)
       BorderRadius.value (px 6) ]
+
+let Label =
+    [ MarginBottom.value (px 4)
+      FontSize.value (px 16)
+      LineHeight.value (px 24)
+      Color.hex Colors.DarkGray ]
+
+let Input =
+    [ Width.value (px 312)
+      Border.none
+      BorderRadius.value (px 6)
+      Height.value (px 40)
+      BackgroundColor.hex Colors.LightGray
+      Color.hex Colors.Gray
+      FontSize.value (px 12)
+      LineHeight.value (px 16)
+      TextAlign.center
+      BoxShadow.value (px 0, px 2, px 2, rgba 0 0 0 0.15) ]
