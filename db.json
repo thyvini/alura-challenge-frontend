@@ -1,3 +1,76 @@
 ﻿{
-
+  "animals": [
+    {
+      "id": 1,
+      "name": "Dunga",
+      "age": "2 anos",
+      "size": "Porte pequeno",
+      "temper": "Calmo e educado",
+      "location": "Rio de Janeiro (RJ)"
+    },
+    {
+      "id": 2,
+      "name": "Felícia",
+      "age": "3 meses",
+      "size": "Porte pequeno",
+      "temper": "Ativa e carinhosa",
+      "location": "Nova Iguaçu (RJ)"
+    },
+    {
+      "id": 3,
+      "name": "Sirius",
+      "age": "6 meses",
+      "size": "Porte grande",
+      "temper": "Ativo e educado",
+      "location": "Duque de Caxias (RJ)"
+    },
+    {
+      "id": 4,
+      "name": "Fiona",
+      "age": "3 anos",
+      "size": "Porte pequeno",
+      "temper": "Calma e carinhosa",
+      "location": "São Gonçalo (RJ)"
+    },
+    {
+      "id": 5,
+      "name": "Sid",
+      "age": "8 meses",
+      "size": "Porte médio/grande",
+      "temper": "Brincalhão e amável",
+      "location": "Rio de Janeiro (RJ)"
+    },
+    {
+      "id": 6,
+      "name": "Yoda",
+      "age": "1 ano",
+      "size": "Porte médio",
+      "temper": "Ativo e carinhoso",
+      "location": "Nova Iguaçu (RJ)"
+    },
+    {
+      "id": 7,
+      "name": "Lua",
+      "age": "6 meses",
+      "size": "Porte médio",
+      "temper": "Ativa e carinhosa",
+      "location": "Duque de Caxias (RJ)"
+    },
+    {
+      "id": 8,
+      "name": "Amora",
+      "age": "45 dias",
+      "size": "Porte grande",
+      "temper": "Calma e carinhosa",
+      "location": "São Gonçalo (RJ)"
+    },
+    {
+      "id": 9,
+      "name": "Zelda",
+      "age": "5 meses",
+      "size": "Porte médio",
+      "temper": "Ativa e amável",
+      "location": "Rio de Janeiro (RJ)"
+    }
+  ]
 }

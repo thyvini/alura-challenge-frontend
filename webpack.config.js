@@ -7,7 +7,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const { patchGracefulFileSystem } = require("./webpack.common.js");
+const {patchGracefulFileSystem} = require("./webpack.common.js");
 patchGracefulFileSystem();
 
 // If we're running the webpack-dev-server, assume we're in development mode
@@ -93,10 +93,10 @@ module.exports = {
     //      - HotModuleReplacementPlugin: Enables hot reloading when code changes without refreshing
     plugins: isProduction ?
         commonPlugins.concat([
-            new MiniCssExtractPlugin({ filename: 'style.[contenthash].css' }),
+            new MiniCssExtractPlugin({filename: 'style.[contenthash].css'}),
             new CopyWebpackPlugin({
                 patterns: [
-                    { from: resolve(CONFIG.assetsDir) }
+                    {from: resolve(CONFIG.assetsDir)}
                 ]
             }),
         ])
@@ -128,6 +128,11 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.js$/,
+                enforce: "pre",
+                use: ["source-map-loader"],
+            },
+            {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
@@ -146,7 +151,7 @@ module.exports = {
                     },
                     {
                         loader: 'sass-loader',
-                        options: { implementation: require("sass") }
+                        options: {implementation: require("sass")}
                     }
                 ],
             },
