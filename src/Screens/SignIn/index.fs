@@ -1,5 +1,7 @@
 ﻿module App.Screens
 
+open Feliz.Router
+
 type private Msg =
     | Email of string
     | Senha of string
@@ -19,6 +21,9 @@ open type Html
 open type prop
 
 let private styles = Screens.SignIn.styles
+
+let private location =
+    Browser.Dom.window.location
 
 [<ReactComponent>]
 let SignIn () =
@@ -47,10 +52,16 @@ let SignIn () =
                     fss styles.resetPassword
                     text "Esqueci minha senha"
                 ]
-                button [
-                    fss styles.button
-                    type' "submit"
-                    text "Entrar"
+                div [
+                    fss styles.buttonWrapper
+                    children [
+                        a [
+                            fss styles.button
+                            href (Router.format "home")
+                            type' "submit"
+                            text "Entrar"
+                        ]
+                    ]
                 ]
             ]
         ]

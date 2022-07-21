@@ -1,5 +1,7 @@
 ﻿module App.Screens
 
+open Feliz.Router
+
 type private Msg =
     | Email of string
     | Nome of string
@@ -27,6 +29,9 @@ open type Html
 open type prop
 
 let styles = Screens.SignUp.styles
+
+let private location =
+    Browser.Dom.window.location
 
 [<ReactComponent>]
 let SignUp () =
@@ -70,10 +75,16 @@ let SignUp () =
                             (fun value -> dispatch (ConfirmarSenha value))
                     ]
                 ]
-                button [
-                    fss styles.button
-                    type' "submit"
-                    text "Cadastrar"
+                div [
+                    fss styles.buttonWrapper
+                    children [
+                        a [
+                            fss styles.button
+                            href (Router.format "home")
+                            type' "submit"
+                            text "Cadastrar"
+                        ]
+                    ]
                 ]
             ]
         ]

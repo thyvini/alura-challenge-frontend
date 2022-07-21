@@ -14,8 +14,9 @@ let Router () =
         router.children [
             match currentUrl with
             | [] -> Screens.Initial()
-            | ["cadastro"] -> Screens.SignUp()
-            | ["login"] -> Screens.SignIn()
+            | [ "cadastro" ] -> Screens.SignUp()
+            | [ "login" ] -> Screens.SignIn()
+            | [ "home" ] -> Screens.Home()
             | _ -> ()
         ]
     ]

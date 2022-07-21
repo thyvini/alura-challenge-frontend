@@ -3,6 +3,7 @@
 open Fss
 open App
 open Design
+open Fss.Types
 
 let private container =
     [ Width.value (vw 100)
@@ -19,12 +20,18 @@ let private formBox =
       FlexDirection.column
       JustifyContent.spaceBetween ]
 
+let private buttonWrapper =
+    [ yield! GlobalStyles.MarginAuto
+      Width.value (px 148)
+      Display.flex ]
+
 let private button =
     [ yield! GlobalStyles.Button
-      Width.value (px 148)
+      Width.value (Percent 100)
       MarginBottom.value (px 105) ]
 
 let styles =
     {| container = container
        formBox = formBox
+       buttonWrapper = buttonWrapper
        button = button |}

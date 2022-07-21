@@ -22,7 +22,7 @@ let private paws =
 let private vector1 =
     [ MaxWidth.value (vw 95)
       Position.absolute
-      ZIndex.value -2 ]
+      ZIndex.value 1 ]
 
 let private vector2 =
     [ Position.absolute

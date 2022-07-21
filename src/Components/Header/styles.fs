@@ -9,7 +9,7 @@ let private container =
 let private navbarContainer =
     [ Display.flex
       Position.relative
-      ZIndex.value 1
+      ZIndex.value 5
       AlignItems.center
       JustifyContent.spaceBetween ]
 

@@ -3,6 +3,7 @@
 open Fss
 open App
 open Design
+open Fss.Types
 
 let private container =
     [ Width.value (vw 100)
@@ -27,13 +28,19 @@ let private resetPassword =
       LineHeight.value (px 24)
       MarginBottom.value (px 24) ]
 
+let private buttonWrapper =
+    [ yield! GlobalStyles.MarginAuto
+      Width.value (px 148)
+      Display.flex ]
+    
 let private button =
     [ yield! GlobalStyles.Button
-      Width.value (px 148)
+      Width.value (Percent 100)
       MarginBottom.value (px 48) ]
 
 let styles =
     {| container = container
        formBox = formBox
        resetPassword = resetPassword
+       buttonWrapper = buttonWrapper
        button = button |}

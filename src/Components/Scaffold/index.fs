@@ -69,3 +69,7 @@ let InitialScreenScaffold children =
 [<ReactComponent>]
 let UserFormScaffold children =
     Scaffold Colors.White true VectorLeft false children
+
+[<ReactComponent>]
+let CommonScaffold children =
+    Scaffold Colors.White false VectorNone true children
