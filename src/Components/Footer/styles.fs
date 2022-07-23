@@ -1,16 +1,18 @@
 ﻿module App.Components.Footer
 
+open App
 open App.Design
 open Fss
 open Fss.Types
 
 let private footer =
-    [ MaxWidth.value (vw 100)
-      Height.value (px 105)
-      Position.relative
+    [ Position.absolute
       Bottom.value (px 0)
       TextAlign.center
-      BackgroundColor.hex Colors.Green ]
+      BackgroundColor.hex Colors.Green
+      Width.value (vw 100)
+      Height.value (px 105)
+      Media.query MediaQueries.Desktop [ Height.value (px 80) ] ]
 
 let private text =
     [ Position.relative
@@ -19,6 +21,6 @@ let private text =
       Transform.value [
           Transform.translateY (Percent -50)
       ] ]
-    
+
 let styles =
     {| footer = footer; text = text |}

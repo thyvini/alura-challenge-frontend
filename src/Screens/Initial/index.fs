@@ -4,14 +4,19 @@ open Feliz
 open App.Components
 open Feliz.Router
 open Fss.Feliz
+open Feliz.UseMediaQuery
 
 open type Html
 open type prop
 
-let private styles = App.Screens.Initial.styles
+let private styles =
+    App.Screens.Initial.styles
 
 [<ReactComponent>]
 let Initial () =
+    let isMobile =
+        React.useMediaQuery MediaQueries.MobileMediaQueryString
+
     InitialScreenScaffold(
         div [
             fss styles.container
@@ -31,7 +36,12 @@ let Initial () =
                 main [
                     p [
                         fss styles.content
-                        text "Que tal mudar sua vida adotando seu novo melhor amigo? Vem com a gente!"
+                        text (
+                            if isMobile then
+                                "Que tal mudar sua vida adotando seu novo melhor amigo? Vem com a gente!"
+                            else
+                                "Adotar pode mudar uma vida. Que tal buscar seu novo melhor amigo hoje? Vem com a gente!"
+                        )
                     ]
                     div [
                         fss styles.buttonBox

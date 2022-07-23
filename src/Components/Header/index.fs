@@ -20,8 +20,13 @@ let Header isLogged =
                     nav [
                         fss styles.navbar
                         children [
+                            img [
+                                src "img/Logo.png"
+                                fss styles.navbarLogo
+                            ]
                             a [
                                 href (Router.format "")
+                                fss styles.navLink
                                 children [
                                     img [
                                         src "img/Casa.svg"
@@ -31,6 +36,7 @@ let Header isLogged =
                             ]
                             a [
                                 href (Router.format "mensagem")
+                                fss styles.navLink
                                 children [
                                     img [
                                         src "img/Mensagens.svg"

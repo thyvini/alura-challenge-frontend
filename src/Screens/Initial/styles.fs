@@ -11,7 +11,7 @@ let private container =
     [ TextAlign.center
       Color.white
       MinWidth.value (vw 100)
-      MinHeight.value (vh 100) ]
+      Media.query MediaQueries.Desktop [ Height.initial ] ]
 
 let private logo =
     [ yield! GlobalStyles.MarginAuto
@@ -25,20 +25,40 @@ let private title =
       PaddingTop.value (px 30) ]
 
 let private content =
-    [ FontSize.value (px 16)
+    [ yield! GlobalStyles.MarginAuto
+      FontSize.value (px 16)
       LineHeight.value (px 24)
       OverflowWrap.normal
-      Margin.value (px 0, px 56)
-      PaddingTop.value (px 16) ]
+      PaddingTop.value (px 16)
+      MaxWidth.value (px 248)
+      Media.query
+          MediaQueries.Tablet
+          [ MaxWidth.value (px 344)
+            FontSize.value (px 18)
+            LineHeight.value (px 26) ]
+      Media.query
+          MediaQueries.Desktop
+          [ MaxWidth.value (px 488)
+            FontSize.value (px 18)
+            LineHeight.value (px 26) ] ]
 
 let private buttonBox =
-    [ Display.flex
+    [ yield! GlobalStyles.MarginAuto
+      Display.flex
       FlexDirection.column
-      yield! GlobalStyles.MarginAuto
-      Width.value (px 180)
-      Height.value (px 96)
+      JustifyContent.spaceBetween
       MarginTop.value (px 24)
-      JustifyContent.spaceBetween ]
+      MarginBottom.value (px 420)
+      Height.value (px 96)
+      Width.value (px 180)
+      Media.query
+          MediaQueries.Tablet
+          [ Height.value (px 112)
+            Width.value (px 344) ]
+      Media.query
+          MediaQueries.Desktop
+          [ Height.value (px 112)
+            Width.value (px 362) ] ]
 
 let private button =
     [ yield! GlobalStyles.Button
@@ -47,11 +67,14 @@ let private button =
 let private illustration =
     [ Position.absolute
       Bottom.value (px 75)
-      Left.value (Percent 45)
       ZIndex.value -1
+      Left.value (pct 50)
       Transform.value [
-          Transform.translateX (Percent -50)
-      ] ]
+          Transform.translateX (pct -50)
+      ]
+      Media.query MediaQueries.Mobile [ Left.value (pct 45) ]
+      Media.query MediaQueries.Desktop [ Bottom.value (px 55) ]
+       ]
 
 let styles =
     {| container = container

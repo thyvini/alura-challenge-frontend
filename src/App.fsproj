@@ -5,6 +5,7 @@
     <ItemGroup>
         <None Include="index.html" />
         <Compile Include="Design.fs" />
+        <Compile Include="MediaQueries.fs" />
         <Compile Include="GlobalStyles.fs" />
         <Compile Include="Components\Header\styles.fs" />
         <Compile Include="Components\Header\index.fs" />

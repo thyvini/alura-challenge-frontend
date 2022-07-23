@@ -1,49 +1,51 @@
 ﻿module App.Components.Scaffold
 
 open Fss
-open Fss.Types
+open App
 
 let private container color =
     [ Position.absolute
       BackgroundColor.hex color
       Overflow.hidden
-      MinHeight.value (Percent 100)
-      MaxWidth.value (Percent 100)
+      MinHeight.value (pct 100)
+      MaxWidth.value (pct 100)
       ZIndex.value -3 ]
 
 let private vectorBox =
-    [ MaxWidth.value (Percent 100) ]
+    [ MaxWidth.value (pct 100) ]
 
 let private paws =
     [ Position.absolute
-      ZIndex.value -2
+      ZIndex.value 2
       Right.value (px 0) ]
 
 let private vector1 =
-    [ MaxWidth.value (vw 95)
+    [ MaxWidth.value (px 560)
+      Width.value (px 560)
+      Media.query MediaQueries.Mobile [ MaxWidth.value (vw 95) ]
       Position.absolute
       ZIndex.value 1 ]
 
 let private vector2 =
     [ Position.absolute
-      Right.value (px -5)
-      Top.value (Percent 50)
       ZIndex.value -2
       Transform.value [
-          Transform.translateY (Percent -50)
-      ] ]
+          Transform.translateY (pct -50)
+      ]
+      Top.value (pct 50)
+      Right.value (px 0)
+      Media.query MediaQueries.Mobile [ Right.value (px -10) ] ]
 
 let private vector2Inverse =
     [ yield! vector2
       Left.value (px 0)
-      Top.value (Percent 37)
+      Top.value (pct 37)
       Transform.value [
           Transform.matrix (-1, 0, 0, 1, 0, 0)
       ] ]
 
 let private content =
-    [ MinHeight.value (Percent 100)
-      MaxWidth.value (vw 100) ]
+    [ MaxWidth.value (vw 100) ]
 
 let styles =
     {| container = container

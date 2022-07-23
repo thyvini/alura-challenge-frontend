@@ -13,16 +13,20 @@ let inline MarginXAuto (value: 'a) =
 let MarginAuto = MarginXAuto(px 0)
 
 let Button =
-    [ Padding.value (px 8, px 0)
-      FontSize.value (px 16)
+    [ BorderRadius.value (px 6)
       FontWeight.value 600
       FontStyle.normal
-      LineHeight.value (px 24)
       Color.white
-      TextDecoration.none
       Border.none
       BackgroundColor.value (hex Colors.Coral)
-      BorderRadius.value (px 6) ]
+      TextDecoration.none
+      LineHeight.value (px 24)
+      FontSize.value (px 18)
+      Padding.value (px 12, px 0)
+      Media.query
+          MediaQueries.Mobile
+          [ FontSize.value (px 16)
+            Padding.value (px 8, px 0) ] ]
 
 let Label =
     [ MarginBottom.value (px 4)

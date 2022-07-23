@@ -3,6 +3,7 @@
 open Design
 open App.Components
 open Feliz
+open Feliz.UseMediaQuery
 open Fss
 open Fss.Types
 
@@ -15,6 +16,11 @@ type VectorPosition =
     | VectorNone
 
 let private styles = Scaffold.styles
+
+let private mobileVector vector =
+    match React.useMediaQuery MediaQueries.MobileMediaQueryString with
+    | true -> vector
+    | false -> VectorRight
 
 [<ReactComponent>]
 let Scaffold
@@ -68,8 +74,12 @@ let InitialScreenScaffold children =
     
 [<ReactComponent>]
 let UserFormScaffold children =
-    Scaffold Colors.White true VectorLeft false children
+    let vector = mobileVector VectorLeft
+    
+    Scaffold Colors.White true vector false children
 
 [<ReactComponent>]
 let CommonScaffold children =
-    Scaffold Colors.White false VectorNone true children
+    let vector = mobileVector VectorNone
+    
+    Scaffold Colors.White false vector true children
