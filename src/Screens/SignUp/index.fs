@@ -22,6 +22,7 @@ let private update (state: State) =
     | ConfirmarSenha input -> { state with ConfirmarSenha = input }
 
 open Feliz
+open Feliz.UseMediaQuery
 open Fss
 open Components
 
@@ -43,6 +44,8 @@ let SignUp () =
               Senha = ""
               ConfirmarSenha = "" }
         )
+    
+    let isMobile = React.useMediaQuery MediaQueries.MobileMediaQueryString
 
     UserFormScaffold(
         div [
@@ -54,16 +57,16 @@ let SignUp () =
                     children [
                         Html.text "Ainda não tem cadastro?"
                         Html.br []
-                        Html.br []
+                        if isMobile then Html.br []
                         Html.text "Então, antes de buscar seu melhor amigo, precisamos de alguns dados:"
                     ]
                 ]
                 div [
                     fss styles.formBox
                     children [
-                        StringFormInput "Email" "Email" "Escolha seu melhor email" state.Email (fun value ->
+                        StringFormInput true "Email" "Email" "Escolha seu melhor email" state.Email (fun value ->
                             dispatch (Email value))
-                        StringFormInput "Nome" "Nome" "Digite seu nome completo" state.Nome (fun value ->
+                        StringFormInput true "Nome" "Nome" "Digite seu nome completo" state.Nome (fun value ->
                             dispatch (Nome value))
                         PasswordFormInput "Senha" "Senha" "Crie uma senha" state.Senha (fun value ->
                             dispatch (Senha value))

@@ -22,13 +22,16 @@ let private formBox =
 
 let private buttonWrapper =
     [ yield! GlobalStyles.MarginAuto
+      Display.flex
       Width.value (px 148)
-      Display.flex ]
+      MinHeight.value (px 250) ]
 
 let private button =
     [ yield! GlobalStyles.Button
-      Width.value (Percent 100)
-      MarginBottom.value (px 105) ]
+      BoxSizing.borderBox
+      MinWidth.value (pct 100)
+      MaxHeight.value (px 40)
+      VerticalAlign.middle ]
 
 let styles =
     {| container = container

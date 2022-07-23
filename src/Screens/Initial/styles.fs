@@ -61,7 +61,7 @@ let private buttonBox =
             Width.value (px 362) ] ]
 
 let private button =
-    [ yield! GlobalStyles.Button
+    [ yield! GlobalStyles.ResponsiveButton
       Filter.dropShadow (px 2, px 2, px 4, (rgba 0 0 0 0.25)) ]
 
 let private illustration =

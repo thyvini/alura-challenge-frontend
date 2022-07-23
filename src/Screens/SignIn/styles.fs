@@ -6,10 +6,10 @@ open Design
 open Fss.Types
 
 let private container =
-    [ Width.value (vw 100)
+    [ TextAlign.center
+      Width.value (vw 100)
       MaxWidth.value (vw 100)
-      MinHeight.value (vh 80)
-      TextAlign.center ]
+      Media.query MediaQueries.Mobile [ MinHeight.value (vh 80) ] ]
 
 let private formBox =
     [ yield! GlobalStyles.MarginAuto
@@ -32,10 +32,10 @@ let private buttonWrapper =
     [ yield! GlobalStyles.MarginAuto
       Width.value (px 148)
       Display.flex ]
-    
+
 let private button =
     [ yield! GlobalStyles.Button
-      Width.value (Percent 100)
+      Width.value (pct 100)
       MarginBottom.value (px 48) ]
 
 let styles =

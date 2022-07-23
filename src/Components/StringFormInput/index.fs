@@ -2,13 +2,16 @@
 
 open Feliz
 open Fss
+
 open type Html
 open type prop
 
-let private styles = Components.StringFormInput.styles
+let private styles =
+    Components.StringFormInput.styles
 
 [<ReactComponent>]
 let StringFormInput
+    (isBigOnDesktop: bool)
     (labelText: string)
     inputName
     inputPlaceholder
@@ -24,7 +27,12 @@ let StringFormInput
                 text labelText
             ]
             input [
-                fss GlobalStyles.Input
+                fss (
+                    if isBigOnDesktop then
+                        GlobalStyles.Input @ GlobalStyles.DesktopBigInput
+                    else
+                        GlobalStyles.Input
+                )
                 name inputName
                 placeholder inputPlaceholder
                 type' "text"

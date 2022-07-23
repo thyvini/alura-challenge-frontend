@@ -42,7 +42,7 @@ let SignIn () =
                 div [
                     fss styles.formBox
                     children [
-                        StringFormInput "Email" "Email" "Insira seu email" state.Email (fun value ->
+                        StringFormInput true "Email" "Email" "Insira seu email" state.Email (fun value ->
                             dispatch (Email value))
                         PasswordFormInput "Senha" "Senha" "Insira sua senha" state.Senha (fun value ->
                             dispatch (Senha value))

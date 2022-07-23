@@ -15,3 +15,6 @@ let Tablet =
 
 let Desktop =
     [ Fss.Types.Media.MinWidth(px 1024) ]
+
+let TabletAndDesktop =
+    [ Fss.Types.Media.MinWidth(px 768) ]
