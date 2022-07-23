@@ -12,20 +12,26 @@ let private container =
 let private description =
     [ yield! GlobalStyles.Description
       MarginTop.value (px 20)
-      MaxWidth.value (px 220)
-      MarginBottom.value (px 24) ]
+      MarginBottom.value (px 24)
+      Media.query MediaQueries.Mobile [ MaxWidth.value (px 220) ] ]
 
 let private listContainer =
-    [ Width.value (Percent 100)
-      Display.flex
-      FlexDirection.column ]
+    [ yield! GlobalStyles.MarginAuto
+      Custom "display" "inline-grid"
+      GridTemplateColumns.repeat (1, fr 1)
+      GridGap.value (px 16)
+      Media.query MediaQueries.Mobile [ Margin.initial ]
+      Media.query MediaQueries.Tablet [ GridTemplateColumns.repeat (2, ContentSize.FitContent(px 364)) ]
+      Media.query MediaQueries.Desktop [ GridTemplateColumns.repeat (3, ContentSize.FitContent(px 364)) ] ]
 
 let private listItem =
     [ Display.flex
       BackgroundColor.hex Colors.LightGray
-      Margin.value (px 8, px 0)
       AlignItems.center
-      LastChild [ MarginBottom.initial ]
+      MaxHeight.value (px 196)
+      LastChild [
+          MarginBottom.value (px 150)
+      ]
       !> Html.All [ FlexGrow.value 1 ] ]
 
 let private itemImage =

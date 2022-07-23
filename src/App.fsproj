@@ -18,6 +18,7 @@
         <Compile Include="Components\PasswordFormInput\styles.fs" />
         <Compile Include="Components\PasswordFormInput\index.fs" />
         <Compile Include="Components\BlueLogo\index.fs" />
+        <Compile Include="Components\Loader\index.fs" />
         <Compile Include="Screens\Initial\styles.fs" />
         <Compile Include="Screens\Initial\index.fs" />
         <Compile Include="Screens\SignUp\styles.fs" />
