@@ -18,6 +18,7 @@ let Router () =
             | [ "login" ] -> Screens.SignIn()
             | [ "home" ] -> Screens.Home()
             | [ "animal"; Route.Int id; "contato" ] -> Screens.Contact id
+            | [ "perfil" ] -> Screens.Profile()
             | _ -> ()
         ]
     ]

@@ -51,6 +51,7 @@ let Header isLogged =
                             fss styles.button
                             role "button"
                             tabIndex 0
+                            href (Router.format "perfil")
                             children [
                                 img [
                                     fss styles.buttonImage

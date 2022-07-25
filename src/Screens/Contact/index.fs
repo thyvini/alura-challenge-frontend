@@ -24,20 +24,24 @@ let Contact (id: int) =
                     children [
                         label [ text "Nome" ]
                         input [
+                            fss styles.input
                             placeholder "Insira seu nome completo"
                         ]
                         label [ text "Telefone" ]
                         input [
+                            fss styles.input
                             placeholder "Insira seu telefone e/ou whatsapp"
                         ]
                         label [ text "Nome do Animal" ]
                         input [
+                            fss styles.input
                             placeholder "Por qual animal você se interessou?"
                         ]
                         label [ text "Mensagem" ]
                         textarea [
+                            fss styles.input
                             placeholder "Escreva sua mensagem"
-                            rows 10
+                            rows 9
                         ]
                         button [ text "Enviar" ]
                     ]

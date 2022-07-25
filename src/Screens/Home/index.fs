@@ -40,8 +40,8 @@ let sourceSet animalName =
 let Home () =
     let loadAnimals =
         promise {
-            do! Promise.sleep 3000
-            let! response = fetch "https://e9eb-2804-14c-87c5-c05a-00-2d54.sa.ngrok.io/animals" []
+            do! Promise.sleep 2000
+            let! response = fetch "https://cf1e-2804-14c-87c5-c05a-00-2d54.sa.ngrok.io/animals" []
 
             let! data = response.json<IAnimal seq> ()
 
