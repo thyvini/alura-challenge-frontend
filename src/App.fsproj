@@ -27,6 +27,8 @@
         <Compile Include="Screens\SignIn\index.fs" />
         <Compile Include="Screens\Home\styles.fs" />
         <Compile Include="Screens\Home\index.fs" />
+        <Compile Include="Screens\Contact\styles.fs" />
+        <Compile Include="Screens\Contact\index.fs" />
         <Compile Include="Router.fs" />
         <Compile Include="Main.fs" />
     </ItemGroup>

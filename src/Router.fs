@@ -17,6 +17,7 @@ let Router () =
             | [ "cadastro" ] -> Screens.SignUp()
             | [ "login" ] -> Screens.SignIn()
             | [ "home" ] -> Screens.Home()
+            | [ "animal"; Route.Int id; "contato" ] -> Screens.Contact id
             | _ -> ()
         ]
     ]

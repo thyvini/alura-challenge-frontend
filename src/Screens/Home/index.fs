@@ -2,6 +2,7 @@
 
 open Fable
 open Fable.Core
+open Feliz.Router
 open Fetch
 open Feliz
 open Feliz.UseDeferred
@@ -40,7 +41,7 @@ let Home () =
     let loadAnimals =
         promise {
             do! Promise.sleep 3000
-            let! response = fetch "https://dd96-2804-14c-87c5-c05a-00-2d54.sa.ngrok.io/animals" []
+            let! response = fetch "https://e9eb-2804-14c-87c5-c05a-00-2d54.sa.ngrok.io/animals" []
 
             let! data = response.json<IAnimal seq> ()
 
@@ -102,10 +103,13 @@ let Home () =
                                                 div [
                                                     p animal.location
                                                     a [
-                                                        img [
-                                                            prop.src "img/ícone mensagem.svg"
+                                                        prop.href (Router.format ("animal", animal.id, "contato"))
+                                                        prop.children [
+                                                            img [
+                                                                prop.src "img/ícone mensagem.svg"
+                                                            ]
+                                                            text "Falar com responsável"
                                                         ]
-                                                        text "Falar com responsável"
                                                     ]
                                                 ]
                                             ]

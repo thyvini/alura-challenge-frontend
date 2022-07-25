@@ -61,7 +61,11 @@ let private itemContent =
                 Html.P
                 [ FontSize.value (px 12)
                   LineHeight.value (px 16) ]
-            !> Html.A [ FontSize.value (px 10) ]
+            !>
+                Html.A
+                [ FontSize.value (px 10)
+                  TextDecoration.none
+                  Color.hex Colors.DarkGray ]
             !
                 Html.Img
                 [ Width.value (px 18)

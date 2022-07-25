@@ -22,7 +22,8 @@ let Button =
       TextDecoration.none
       LineHeight.value (px 24)
       FontSize.value (px 16)
-      Padding.value (px 8, px 0) ]
+      Padding.value (px 8, px 0)
+      Cursor.pointer ]
 
 let ResponsiveButton =
     [ yield! Button
