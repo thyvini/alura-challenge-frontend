@@ -33,6 +33,16 @@ type LoginUserError =
             match this with
             | _ -> "E-mail e/ou senha incorretos"
 
+type ContactError =
+    | MissingName
+    | MissingPhone
+    | MissingAnimal
+    | MissingMessage
+    interface IErrorUnion with
+        member this.GetMessage() =
+            match this with
+            | _ -> "Preencha este campo corretamente"
+
 let printIfError (error: #IErrorUnion option) = error |> Option.map getMessage
 
 let inline getUnionType<'T> (union: ^T) =

@@ -9,7 +9,7 @@ module Validation =
         let pattern =
             Regex "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
 
-        String.IsNullOrWhiteSpace(email) |> not
+        String.IsNullOrWhiteSpace email |> not
         && email |> pattern.IsMatch
 
     let password (password: string) =
@@ -25,3 +25,12 @@ module Validation =
     let name (name: string) =
         name.Length > 1
         && (String.IsNullOrWhiteSpace name |> not)
+
+    let phone (phone: string) =
+        let pattern = Regex "\(\d{2}\)\d{5}-\d{4}"
+
+        String.IsNullOrWhiteSpace phone |> not
+        && phone |> pattern.IsMatch
+    
+    let nonEmptyString (str: string) =
+        String.IsNullOrWhiteSpace str |> not

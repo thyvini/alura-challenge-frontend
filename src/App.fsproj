@@ -13,6 +13,7 @@
         <Compile Include="Dtos\RegisterUserDto.fs" />
         <Compile Include="Dtos\CreateUserFormDto.fs" />
         <Compile Include="Dtos\LoginUserFormDto.fs" />
+        <Compile Include="Dtos\ContactFormDto.fs" />
         <Compile Include="Repository.fs" />
         <Compile Include="Design.fs" />
         <Compile Include="MediaQueries.fs" />
@@ -39,6 +40,7 @@
         <Compile Include="Screens\SignIn\index.fs" />
         <Compile Include="Screens\Home\styles.fs" />
         <Compile Include="Screens\Home\index.fs" />
+        <Compile Include="Screens\Contact\state.fs" />
         <Compile Include="Screens\Contact\styles.fs" />
         <Compile Include="Screens\Contact\index.fs" />
         <Compile Include="Screens\Profile\styles.fs" />

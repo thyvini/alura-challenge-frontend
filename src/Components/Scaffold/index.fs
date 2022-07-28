@@ -35,6 +35,7 @@ let Scaffold
         prop.children [
             div [
                 fss styles.vectorBox
+                draggable false
                 prop.children [
                     img [
                         src "img/Forma 1.svg"

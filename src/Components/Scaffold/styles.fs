@@ -2,6 +2,7 @@
 
 open Fss
 open App
+open Fss.Types
 
 let private container color =
     [ Position.absolute
@@ -12,7 +13,8 @@ let private container color =
       ZIndex.value -3 ]
 
 let private vectorBox =
-    [ MaxWidth.value (pct 100) ]
+    [ MaxWidth.value (pct 100)
+      ! Html.Img [ UserSelect.none ] ]
 
 let private paws =
     [ Position.absolute
@@ -24,7 +26,8 @@ let private vector1 =
       Width.value (px 560)
       Media.query MediaQueries.Mobile [ MaxWidth.value (vw 95) ]
       Position.absolute
-      ZIndex.value 1 ]
+      ZIndex.value 1
+      Media.query MediaQueries.Desktop [ ZIndex.value -1 ] ]
 
 let private vector2 =
     [ Position.absolute
