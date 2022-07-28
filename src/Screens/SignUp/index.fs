@@ -1,51 +1,83 @@
 ﻿module App.Screens
 
-open Feliz.Router
-
-type private Msg =
-    | Email of string
-    | Nome of string
-    | Senha of string
-    | ConfirmarSenha of string
-
-type private State =
-    { Email: string
-      Nome: string
-      Senha: string
-      ConfirmarSenha: string }
-
-let private update (state: State) =
-    function
-    | Email input -> { state with Email = input }
-    | Nome input -> { state with Nome = input }
-    | Senha input -> { state with Senha = input }
-    | ConfirmarSenha input -> { state with ConfirmarSenha = input }
-
+open Browser.Types
 open Feliz
 open Feliz.UseMediaQuery
 open Fss
 open Components
+open Screens.SignUp.State
+open Errors
 
 open type Html
 open type prop
 
-let styles = Screens.SignUp.styles
-
-let private location =
-    Browser.Dom.window.location
+let private styles = Screens.SignUp.styles
 
 [<ReactComponent>]
 let SignUp () =
     let state, dispatch =
-        React.useReducer (
-            update,
-            { Nome = ""
-              Email = ""
-              Senha = ""
-              ConfirmarSenha = "" }
-        )
-    
-    let isMobile = React.useMediaQuery MediaQueries.MobileMediaQueryString
+        React.useReducer (updateState, initialState)
+
+    let errors, setErrors = React.useState []
+
+    let isMobile =
+        React.useMediaQuery MediaQueries.MobileMediaQueryString
+
+    let handleSubmit (event: Event) =
+        event.preventDefault ()
+
+        let pipelineWithErrorUpdate =
+            pipeline setErrors
+
+        Ok state |> pipelineWithErrorUpdate |> ignore
+
+    let emailInputProps =
+        (true,
+         "Email",
+         "Email",
+         "Escolha seu melhor email",
+         state.Email,
+         (dispatch << Email),
+         printIfError (
+             findErrors
+                 errors
+                 [ nameof InvalidEmail
+                   nameof EmailAlreadyExists ]
+         ))
+
+    let nameInputProps =
+        (true,
+         "Nome",
+         "Nome",
+         "Digite seu nome completo",
+         state.Name,
+         (dispatch << Name),
+         printIfError (findError errors (nameof InvalidName)))
+
+    let stringInputs =
+        [ emailInputProps; nameInputProps ]
+        |> List.map StringFormInput
+
+    let passwordInputProps =
+        ("Senha",
+         "Senha",
+         "Crie uma senha",
+         state.Password,
+         (dispatch << Password),
+         printIfError (findError errors (nameof InvalidPassword)))
+
+    let passwordConfirmationInputProps =
+        ("Confirmar Senha",
+         "ConfirmarSenha",
+         "Repita a senha criada acima",
+         state.PasswordConfirmation,
+         (dispatch << PasswordConfirmation),
+         printIfError (findError errors (nameof InvalidPasswordConfirmation)))
+
+    let passwordInputs =
+        [ passwordInputProps
+          passwordConfirmationInputProps ]
+        |> List.map PasswordFormInput
 
     UserFormScaffold(
         div [
@@ -61,31 +93,22 @@ let SignUp () =
                         Html.text "Então, antes de buscar seu melhor amigo, precisamos de alguns dados:"
                     ]
                 ]
-                div [
+                Html.form [
                     fss styles.formBox
+                    method "POST"
+                    onSubmit handleSubmit
                     children [
-                        StringFormInput true "Email" "Email" "Escolha seu melhor email" state.Email (fun value ->
-                            dispatch (Email value))
-                        StringFormInput true "Nome" "Nome" "Digite seu nome completo" state.Nome (fun value ->
-                            dispatch (Nome value))
-                        PasswordFormInput "Senha" "Senha" "Crie uma senha" state.Senha (fun value ->
-                            dispatch (Senha value))
-                        PasswordFormInput
-                            "Confirmar Senha"
-                            "ConfirmarSenha"
-                            "Repita a senha criada acima"
-                            state.ConfirmarSenha
-                            (fun value -> dispatch (ConfirmarSenha value))
-                    ]
-                ]
-                div [
-                    fss styles.buttonWrapper
-                    children [
-                        a [
-                            fss styles.button
-                            href (Router.format "home")
-                            type' "submit"
-                            text "Cadastrar"
+                        yield! stringInputs
+                        yield! passwordInputs
+                        div [
+                            fss styles.buttonWrapper
+                            children [
+                                button [
+                                    fss styles.button
+                                    type' "submit"
+                                    text "Cadastrar"
+                                ]
+                            ]
                         ]
                     ]
                 ]

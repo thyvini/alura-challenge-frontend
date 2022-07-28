@@ -47,12 +47,14 @@ let Input =
       Border.none
       BorderRadius.value (px 6)
       BackgroundColor.hex Colors.LightGray
-      Color.hex Colors.Gray
+      Color.hex Colors.DarkGray
       FontSize.value (px 12)
       LineHeight.value (px 16)
       TextAlign.center
       Height.value (px 40)
       Width.value (px 312)
+      Placeholder [ Color.hex Colors.Gray ]
+      MarginBottom.value (px 12)
       Media.query MediaQueries.Tablet [ Width.value (px 344) ]
       Media.query MediaQueries.Desktop [ Width.value (px 362) ] ]
 
@@ -131,4 +133,12 @@ let FormBoxTextInput =
       MarginBottom.value (px 16)
       Padding.value (px 12, px 16)
       BoxShadow.value (px 0, px 2, px 4, rgba 0 0 0 0.15)
-      Resize.none ]
+      Resize.none
+      Placeholder [ Color.hex Colors.Gray ] ]
+
+let ErrorMessage =
+    [ Color.hex Colors.Coral
+      FontSize.value (px 12)
+      TextAlign.center
+      MarginTop.value (px 2)
+      MarginBottom.value (px 16) ]

@@ -9,18 +9,19 @@ open Feliz.UseDeferred
 open Feliz.UseMediaQuery
 open Fss
 open App.Components
+open App.JsModules.NodeProcess
 
 open type Html
 
 let private styles = Screens.Home.styles
 
-type IAnimal =
-    abstract id: int
-    abstract name: string
-    abstract age: string
-    abstract size: string
-    abstract temper: string
-    abstract location: string
+type Animal =
+    { id: int
+      name: string
+      age: string
+      size: string
+      temper: string
+      location: string }
 
 let image animalName = $"img/animals/{animalName}.png"
 
@@ -36,14 +37,17 @@ let sourceSet animalName =
 
     $"{i} 1x,\n{i2} 2x,\n{i3} 3x"
 
+
 [<ReactComponent>]
 let Home () =
+    let url = Process.env "SERVER_URL"
+
     let loadAnimals =
         promise {
             do! Promise.sleep 2000
-            let! response = fetch "https://cf1e-2804-14c-87c5-c05a-00-2d54.sa.ngrok.io/animals" []
+            let! response = fetch $"{url}/animals" []
 
-            let! data = response.json<IAnimal seq> ()
+            let! data = response.json<Animal seq> ()
 
             return Ok data
         }

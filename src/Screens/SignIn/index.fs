@@ -1,21 +1,13 @@
 ﻿module App.Screens
 
-open Feliz.Router
-
-type private Msg =
-    | Email of string
-    | Senha of string
-
-type private State = { Email: string; Senha: string }
-
-let private update (state: State) =
-    function
-    | Email input -> { state with Email = input }
-    | Senha input -> { state with Senha = input }
-
 open Feliz
 open Fss
 open Components
+open Screens.SignIn.State
+open App
+open Dtos.LoginUserFormDto
+open Errors
+open Browser.Types
 
 open type Html
 open type prop
@@ -28,7 +20,23 @@ let private location =
 [<ReactComponent>]
 let SignIn () =
     let state, dispatch =
-        React.useReducer (update, { Email = ""; Senha = "" })
+        React.useReducer (updateState, LoginUserFormDto.create "" "")
+
+    let errors, setErrors = React.useState []
+
+    let handleSubmit (event: Event) =
+        event.preventDefault ()
+
+        let pipelineWithErrorUpdate =
+            pipeline setErrors
+
+        Ok state |> pipelineWithErrorUpdate |> ignore
+
+    let emailInputProps =
+        (true, "Email", "Email", "Insira seu email", state.Email, (dispatch << Email), None)
+
+    let passwordInputProps =
+        ("Senha", "Senha", "Crie uma senha", state.Password, (dispatch << Password), None)
 
     UserFormScaffold(
         div [
@@ -39,27 +47,34 @@ let SignIn () =
                     fss GlobalStyles.Description
                     text "Já tem conta? Faça seu login:"
                 ]
-                div [
-                    fss styles.formBox
-                    children [
-                        StringFormInput true "Email" "Email" "Insira seu email" state.Email (fun value ->
-                            dispatch (Email value))
-                        PasswordFormInput "Senha" "Senha" "Insira sua senha" state.Senha (fun value ->
-                            dispatch (Senha value))
+                if errors.Length > 0 then
+                    p [
+                        fss GlobalStyles.ErrorMessage
+                        text "E-mail e/ou senha incorretos"
                     ]
-                ]
-                a [
-                    fss styles.resetPassword
-                    text "Esqueci minha senha"
-                ]
-                div [
-                    fss styles.buttonWrapper
+                Html.form [
+                    onSubmit handleSubmit
                     children [
+                        div [
+                            fss styles.formBox
+                            children [
+                                StringFormInput emailInputProps
+                                PasswordFormInput passwordInputProps
+                            ]
+                        ]
                         a [
-                            fss styles.button
-                            href (Router.format "home")
-                            type' "submit"
-                            text "Entrar"
+                            fss styles.resetPassword
+                            text "Esqueci minha senha"
+                        ]
+                        div [
+                            fss styles.buttonWrapper
+                            children [
+                                button [
+                                    fss styles.button
+                                    type' "submit"
+                                    text "Entrar"
+                                ]
+                            ]
                         ]
                     ]
                 ]

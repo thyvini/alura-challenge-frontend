@@ -2,6 +2,7 @@
 
 open Feliz
 open Fss
+open App.Validations
 
 open type Html
 open type prop
@@ -10,7 +11,15 @@ let private styles =
     Components.PasswordFormInput.styles
 
 [<ReactComponent>]
-let PasswordFormInput (labelText: string) inputName inputPlaceholder (inputValue: string) (onChange: string -> unit) =
+let PasswordFormInput
+    (
+        labelText: string,
+        inputName: string,
+        inputPlaceholder: string,
+        inputValue: string,
+        onChange: string -> unit,
+        error: string option
+    ) =
     let showPassword, setShowPassword =
         React.useState false
 
@@ -37,6 +46,8 @@ let PasswordFormInput (labelText: string) inputName inputPlaceholder (inputValue
             ]
             button [
                 fss styles.icon
+                type' "button"
+                tabIndex -1
                 children [
                     i [
                         className (
@@ -49,5 +60,12 @@ let PasswordFormInput (labelText: string) inputName inputPlaceholder (inputValue
                 ]
                 onClick (fun _ -> setShowPassword (not showPassword))
             ]
+            match error with
+            | Some e ->
+                p [
+                    fss GlobalStyles.ErrorMessage
+                    text e
+                ]
+            | None -> none
         ]
     ]

@@ -11,13 +11,15 @@ let private styles =
 
 [<ReactComponent>]
 let StringFormInput
-    (isBigOnDesktop: bool)
-    (labelText: string)
-    inputName
-    inputPlaceholder
-    (inputValue: string)
-    (onChange: string -> unit)
-    =
+    (
+        isBigOnDesktop: bool,
+        labelText: string,
+        inputName: string,
+        inputPlaceholder: string,
+        inputValue: string,
+        onChange: string -> unit,
+        error: string option
+    ) =
     div [
         fss styles.container
         children [
@@ -39,5 +41,12 @@ let StringFormInput
                 value inputValue
                 prop.onChange onChange
             ]
+            match error with
+            | Some e ->
+                p [
+                    fss GlobalStyles.ErrorMessage
+                    text e
+                ]
+            | None -> none
         ]
     ]

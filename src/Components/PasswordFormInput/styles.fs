@@ -12,7 +12,7 @@ let private icon =
     [ Position.relative
       AlignSelf.end'
       Right.value (px 5)
-      Bottom.value (px 30)
+      Bottom.value (px 42)
       Border.none
       Height.value (px 0)
       BackgroundColor.transparent
