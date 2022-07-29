@@ -35,19 +35,23 @@ let createUserName name =
     if Validation.name name then
         Ok name
     else
-        Error [ InvalidName ]
+        Error [ CreateUserError.InvalidName ]
 
 let createUserPassword password =
     if Validation.password password then
         Ok password
     else
-        Error [ CreateUserError.InvalidPassword ]
+        Error [
+            CreateUserError.InvalidPassword
+        ]
 
 let createUserPasswordConfirmation password passwordConfirmation =
     if Validation.confirmPassword password passwordConfirmation then
         Ok passwordConfirmation
     else
-        Error [ InvalidPasswordConfirmation ]
+        Error [
+            CreateUserError.InvalidPasswordConfirmation
+        ]
 
 let createUserResult (state: CreateUserFormDto) =
     let emailResult =
@@ -66,15 +70,13 @@ let createUserResult (state: CreateUserFormDto) =
     <*> passwordResult
     <*> passwordConfirmationResult
 
-let private repository = LocalRepository()
-
-let checkIfUserExists (state: CreateUserFormDto) =
+let checkIfUserExists (repository: LocalRepository) (state: CreateUserFormDto) =
     if repository.UserExists state.Email |> not then
         Ok state
     else
         Error [ EmailAlreadyExists ]
 
-let saveAndLogin (state: CreateUserFormDto) =
+let saveAndLogin (repository: LocalRepository) (state: CreateUserFormDto) =
     let user =
         { Name = state.Name
           Email = state.Email
@@ -86,9 +88,9 @@ let saveAndLogin (state: CreateUserFormDto) =
 
 let forward (_: CreateUserFormDto) = Router.navigate "home"
 
-let pipeline errorDispatcher =
+let makePipeline repository errorDispatcher =
     bind createUserResult
-    >> bind checkIfUserExists
-    >> map (tee saveAndLogin)
+    >> bind (checkIfUserExists repository)
+    >> map (tee <| saveAndLogin repository)
     >> map (tee forward)
     >> mapError errorDispatcher

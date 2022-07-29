@@ -2,8 +2,6 @@
 
 open Fss
 open App
-open Design
-open Fss.Types
 
 let private container =
     [ Width.value (vw 100)

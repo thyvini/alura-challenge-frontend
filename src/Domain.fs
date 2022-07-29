@@ -11,3 +11,11 @@ type UserDetails =
       Phone: string option
       City: string option
       Bio: string option }
+
+type Animal =
+    { id: int
+      name: string
+      age: string
+      size: string
+      temper: string
+      location: string }

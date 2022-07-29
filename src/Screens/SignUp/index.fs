@@ -7,6 +7,7 @@ open Fss
 open Components
 open Screens.SignUp.State
 open Errors
+open LocalRepositoryContext
 
 open type Html
 open type prop
@@ -15,6 +16,9 @@ let private styles = Screens.SignUp.styles
 
 [<ReactComponent>]
 let SignUp () =
+    let repository =
+        React.useContext localRepositoryContext
+
     let state, dispatch =
         React.useReducer (updateState, initialState)
 
@@ -26,10 +30,10 @@ let SignUp () =
     let handleSubmit (event: Event) =
         event.preventDefault ()
 
-        let pipelineWithErrorUpdate =
-            pipeline setErrors
+        let pipeline =
+            makePipeline repository setErrors
 
-        Ok state |> pipelineWithErrorUpdate |> ignore
+        Ok state |> pipeline |> ignore
 
     let emailInputProps =
         (true,

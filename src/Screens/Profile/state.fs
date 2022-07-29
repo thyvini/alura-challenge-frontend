@@ -1,11 +1,10 @@
 ﻿module App.Screens.Profile.State
 
 open System
-open Browser.Url
+open Browser
 open Browser.Types
 open App
 open Dtos.ProfileFormDto
-open Fable.Core.JS
 open Validations
 open Errors
 open Repository
@@ -32,10 +31,11 @@ let updateState (state: ProfileFormDto) =
     | City input -> { state with City = input |> tryEmitString }
     | Bio input -> { state with Bio = input |> tryEmitString }
 
-let private repository = LocalRepository()
+let makeInitialState (repository: LocalRepository) =
+    let user, userDetails =
+        repository.GetCurrentUserWithDetails()
 
-let initialState =
-    ProfileFormDto.create (repository.GetCurrentUser().Email) "" None None None None
+    ProfileFormDto.create user.Email user.Name userDetails.Image userDetails.Phone userDetails.City userDetails.Bio
 
 let createName name =
     if Validation.name name then
@@ -53,12 +53,12 @@ let createProfileUpdateResult (state: ProfileFormDto) =
     <*> (Ok state.City)
     <*> (Ok state.Bio)
 
-let save (state: ProfileFormDto) = repository.AddOrUpdateUserDetails state
+let save (repository: LocalRepository) (state: ProfileFormDto) = repository.AddOrUpdateUserDetails state
 
-let makePipeline (errorDispatcher: ProfileEditError list -> unit) =
+let makePipeline repository (errorDispatcher: ProfileEditError list -> unit) =
     let cleanErrors _ = errorDispatcher []
 
     bind createProfileUpdateResult
-    >> map (tee save)
+    >> map (tee <| save repository)
     >> map (tee cleanErrors)
     >> mapError errorDispatcher

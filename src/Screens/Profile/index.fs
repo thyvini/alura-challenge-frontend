@@ -4,21 +4,22 @@ open Browser.Types
 open Feliz
 open Fss
 open App.Components
-open App.Repository
 open Screens.Profile.State
 open Errors
+open LocalRepositoryContext
 
 open type Html
 open type prop
 
 let private styles = Screens.Profile.styles
 
-let private repository = LocalRepository()
-
 [<ReactComponent>]
 let Profile () =
+    let repository =
+        React.useContext localRepositoryContext
+
     let state, dispatch =
-        React.useReducer (updateState, initialState)
+        React.useReducer (updateState, makeInitialState repository)
 
     let errors, setErrors = React.useState []
 
@@ -30,7 +31,10 @@ let Profile () =
 
     let handleSubmit (event: Event) =
         event.preventDefault ()
-        let pipeline = makePipeline setErrors
+
+        let pipeline =
+            makePipeline repository setErrors
+
         Ok state |> pipeline |> ignore
 
     CommonScaffold(

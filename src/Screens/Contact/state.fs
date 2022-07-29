@@ -20,9 +20,6 @@ let updateState (state: ContactFormDto) =
     | Animal input -> { state with Animal = input }
     | Message input -> { state with Message = input }
 
-let initialState =
-    ContactFormDto.create "" "" "" ""
-
 let createName name =
     if Validation.name name then
         Ok name
@@ -62,7 +59,7 @@ let createContactResult (state: ContactFormDto) =
 
 let forward _ = Router.navigate "home"
 
-let pipeline errorDispatcher =
+let makePipeline errorDispatcher =
     bind createContactResult
     >> map (tee forward)
     >> mapError errorDispatcher

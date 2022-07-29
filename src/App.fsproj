@@ -16,6 +16,8 @@
         <Compile Include="Dtos\ContactFormDto.fs" />
         <Compile Include="Dtos\ProfileFormDto.fs" />
         <Compile Include="Repository.fs" />
+        <Compile Include="LocalRepositoryContext.fs" />
+        <Compile Include="Api.fs" />
         <Compile Include="Design.fs" />
         <Compile Include="MediaQueries.fs" />
         <Compile Include="GlobalStyles.fs" />

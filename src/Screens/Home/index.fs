@@ -1,32 +1,23 @@
 ﻿module App.Screens
 
 open Fable
-open Fable.Core
 open Feliz.Router
-open Fetch
 open Feliz
 open Feliz.UseDeferred
 open Feliz.UseMediaQuery
 open Fss
 open App.Components
-open App.JsModules.NodeProcess
+open App.Domain
+open App.Api
 
 open type Html
 
 let private styles = Screens.Home.styles
 
-type Animal =
-    { id: int
-      name: string
-      age: string
-      size: string
-      temper: string
-      location: string }
+let imageSrc animalName = $"img/animals/{animalName}.png"
 
-let image animalName = $"img/animals/{animalName}.png"
-
-let sourceSet animalName =
-    let i = image animalName
+let imageSrcSet animalName =
+    let i = imageSrc animalName
     let imageFormat = i.Split('.')
 
     let i2 =
@@ -37,28 +28,13 @@ let sourceSet animalName =
 
     $"{i} 1x,\n{i2} 2x,\n{i3} 3x"
 
-
 [<ReactComponent>]
 let Home () =
-    let url = Process.env "SERVER_URL"
-
-    let loadAnimals =
-        promise {
-            do! Promise.sleep 2000
-            let! response = fetch $"{url}/animals" []
-
-            let! data = response.json<Animal seq> ()
-
-            return Ok data
-        }
-        |> Promise.catch Error
-        |> Async.AwaitPromise
-
     let animalsDefer, setAnimalsDefer =
         React.useState Deferred.HasNotStartedYet
 
     let loadData =
-        React.useDeferredCallback ((fun () -> loadAnimals), setAnimalsDefer)
+        React.useDeferredCallback ((fun () -> Api.loadAnimals ()), setAnimalsDefer)
 
     React.useEffectOnce loadData
 
@@ -94,8 +70,8 @@ let Home () =
                                     prop.children [
                                         img [
                                             prop.fss styles.itemImage
-                                            prop.src (image animal.name)
-                                            prop.srcset (sourceSet animal.name)
+                                            prop.src (imageSrc animal.name)
+                                            prop.srcset (imageSrcSet animal.name)
                                         ]
                                         div [
                                             prop.fss styles.itemContent

@@ -23,13 +23,7 @@ let private mobileVector vector =
     | false -> VectorRight
 
 [<ReactComponent>]
-let Scaffold
-    (backgroundColor: string)
-    (hasPaws: bool)
-    (vectorPosition: VectorPosition)
-    (isLogged: bool)
-    (children: ReactElement)
-    =
+let Scaffold (backgroundColor: string) (hasPaws: bool) (vectorPosition: VectorPosition) (children: ReactElement) =
     div [
         fss (styles.container backgroundColor)
         prop.children [
@@ -60,7 +54,7 @@ let Scaffold
                     | VectorNone -> Html.none
                 ]
             ]
-            Header isLogged
+            Header()
             div [
                 fss styles.content
                 prop.children children
@@ -71,16 +65,16 @@ let Scaffold
 
 [<ReactComponent>]
 let InitialScreenScaffold children =
-    Scaffold Colors.Blue false VectorRight false children
-    
+    Scaffold Colors.Blue false VectorRight children
+
 [<ReactComponent>]
 let UserFormScaffold children =
     let vector = mobileVector VectorLeft
-    
-    Scaffold Colors.White true vector false children
+
+    Scaffold Colors.White true vector children
 
 [<ReactComponent>]
 let CommonScaffold children =
     let vector = mobileVector VectorNone
-    
-    Scaffold Colors.White false vector true children
+
+    Scaffold Colors.White false vector children

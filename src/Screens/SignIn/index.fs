@@ -6,8 +6,8 @@ open Components
 open Screens.SignIn.State
 open App
 open Dtos.LoginUserFormDto
-open Errors
 open Browser.Types
+open LocalRepositoryContext
 
 open type Html
 open type prop
@@ -19,6 +19,9 @@ let private location =
 
 [<ReactComponent>]
 let SignIn () =
+    let repository =
+        React.useContext localRepositoryContext
+
     let state, dispatch =
         React.useReducer (updateState, LoginUserFormDto.create "" "")
 
@@ -27,10 +30,10 @@ let SignIn () =
     let handleSubmit (event: Event) =
         event.preventDefault ()
 
-        let pipelineWithErrorUpdate =
-            pipeline setErrors
+        let pipeline =
+            makePipeline repository setErrors
 
-        Ok state |> pipelineWithErrorUpdate |> ignore
+        Ok state |> pipeline |> ignore
 
     let emailInputProps =
         (true, "Email", "Email", "Insira seu email", state.Email, (dispatch << Email), None)

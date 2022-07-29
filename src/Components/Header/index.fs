@@ -1,16 +1,34 @@
 ﻿module App.Components
 
-open Feliz
 open Feliz.Router
 open Fss.Feliz
+open Feliz
+open LocalRepositoryContext
 
 open type Html
 open type prop
 
-let private styles = Components.Header.styles
+let private styles =
+    Components.Header.styles
 
 [<ReactComponent>]
-let Header isLogged =
+let Header () =
+    let repository =
+        React.useContext localRepositoryContext
+
+    let user =
+        repository.TryGetCurrentUserWithDetails()
+
+    let isLogged = Option.isSome user
+
+    let image =
+        match user with
+        | Some (_, userDetails) ->
+            match userDetails.Image with
+            | Some image -> image
+            | None -> "img/Usuário.png"
+        | None -> "img/Usuário.png"
+
     header [
         fss styles.container
         children [
@@ -34,16 +52,17 @@ let Header isLogged =
                                     ]
                                 ]
                             ]
-                            a [
-                                href (Router.format "mensagem")
-                                fss styles.navLink
-                                children [
-                                    img [
-                                        src "img/Mensagens.svg"
-                                        fss styles.navLinkImage
+                            if isLogged then
+                                a [
+                                    href (Router.format "mensagem")
+                                    fss styles.navLink
+                                    children [
+                                        img [
+                                            src "img/Mensagens.svg"
+                                            fss styles.navLinkImage
+                                        ]
                                     ]
                                 ]
-                            ]
                         ]
                     ]
                     if isLogged then
@@ -55,7 +74,7 @@ let Header isLogged =
                             children [
                                 img [
                                     fss styles.buttonImage
-                                    src "img/Usuário.png"
+                                    src image
                                 ]
                             ]
                         ]

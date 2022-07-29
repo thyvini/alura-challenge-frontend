@@ -35,11 +35,35 @@ type LocalRepository() =
         usersDetails <- u
         localStorage.setItem (usersDetailsStorageKey, Json.stringify usersDetails)
 
+    member this.IsLoggedIn() =
+        localStorage.getItem currentUserStorageKey <> null
+
     member this.GetUsers() = users
 
     member this.GetCurrentUser() =
         localStorage.getItem currentUserStorageKey
         |> Json.parseAs<User>
+
+
+    member this.GetCurrentUserWithDetails() =
+        let user = this.GetCurrentUser()
+
+        let userDetails =
+            this.TryGetUserDetails user.Email
+            |> Option.defaultValue
+                { Email = user.Email
+                  Image = None
+                  Phone = None
+                  City = None
+                  Bio = None }
+
+        (user, userDetails)
+
+    member this.TryGetCurrentUserWithDetails() =
+        if this.IsLoggedIn() then
+            Some(this.GetCurrentUserWithDetails())
+        else
+            None
 
     member this.UserExists userEmail =
         users
@@ -117,3 +141,6 @@ type LocalRepository() =
                       City = userWithDetails.City
                       Bio = userWithDetails.Bio } ]
             )
+
+    member this.Logout() =
+        localStorage.removeItem currentUserStorageKey

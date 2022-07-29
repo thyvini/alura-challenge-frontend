@@ -4,7 +4,16 @@ open Feliz
 open App
 open Browser.Dom
 open Fable.Core.JsInterop
+open Repository
+open LocalRepositoryContext
 
 importSideEffects "./styles/global.scss"
 
-ReactDOM.render (React.strictMode [ Router() ], document.getElementById "feliz-app")
+let repository = LocalRepository()
+
+ReactDOM.render (
+    React.strictMode [
+        LocalRepositoryProvider repository (Router())
+    ],
+    document.getElementById "feliz-app"
+)

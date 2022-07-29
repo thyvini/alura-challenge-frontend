@@ -40,9 +40,7 @@ let createUserResult (state: LoginUserFormDto) =
     LoginUserFormDto.create <!> emailResult
     <*> passwordResult
 
-let private repository = LocalRepository()
-
-let tryLoginUser (state: LoginUserFormDto) =
+let tryLoginUser (repository: LocalRepository) (state: LoginUserFormDto) =
     let user =
         repository.TryGetUser state.Email state.Password
 
@@ -50,12 +48,12 @@ let tryLoginUser (state: LoginUserFormDto) =
     | Some user -> Ok user
     | None -> Error [ UserNotFound ]
 
-let login (user: User) =
+let login (repository: LocalRepository) (user: User) =
     repository.SetCurrentUser user
     Router.navigate "home"
 
-let pipeline errorDispatcher =
+let makePipeline repository errorDispatcher =
     bind createUserResult
-    >> bind tryLoginUser
-    >> map (tee login)
+    >> bind (tryLoginUser repository)
+    >> map (tee <| login repository)
     >> mapError errorDispatcher

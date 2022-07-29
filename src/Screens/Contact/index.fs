@@ -1,37 +1,60 @@
 ﻿module App.Screens
 
 open Browser.Types
-open Fable.Core.JS
 open Feliz
 open Fss
 open App.Components
 open Screens.Contact.State
 open Errors
+open LocalRepositoryContext
+open Dtos.ContactFormDto
+open App.Domain
+open App.Api
 
 open type Html
-open type prop
 
 let private styles = Screens.Contact.styles
 
 [<ReactComponent>]
 let Contact (id: int) =
+    let repository =
+        React.useContext localRepositoryContext
+
+    let user, userDetails =
+        repository.GetCurrentUserWithDetails()
+
+    let initialState =
+        ContactFormDto.create user.Name (userDetails.Phone |> Option.defaultValue "") "" ""
+
     let state, dispatch =
         React.useReducer (updateState, initialState)
 
     let errors, setErrors = React.useState []
 
+    React.useEffectOnce (fun () ->
+        async {
+            if id = 0 then
+                ()
+            else
+                let! animal = Api.findAnimalById id
+
+                match animal with
+                | Ok animal -> Animal animal.name |> dispatch
+                | Error _ -> ()
+        }
+        |> Async.Start)
+
     let handleSubmit (event: Event) =
         event.preventDefault ()
 
-        let pipelineWithErroUpdate =
-            pipeline setErrors
+        let pipeline = makePipeline setErrors
 
-        Ok state |> pipelineWithErroUpdate |> ignore
+        Ok state |> pipeline |> ignore
 
     let errorToP (errorMessage: string) =
         p [
-            fss GlobalStyles.ErrorMessage
-            text errorMessage
+            prop.fss GlobalStyles.ErrorMessage
+            prop.text errorMessage
         ]
 
     let tryFindAndDisplay e =
@@ -53,51 +76,54 @@ let Contact (id: int) =
 
     CommonScaffold(
         div [
-            fss styles.container
-            children [
+            prop.fss styles.container
+            prop.children [
                 p [
-                    fss styles.description
-                    text "Envie uma mensagem para a pessoa ou instituição que está cuidando do animal:"
+                    prop.fss styles.description
+                    prop.text "Envie uma mensagem para a pessoa ou instituição que está cuidando do animal:"
                 ]
                 Html.form [
-                    onSubmit handleSubmit
-                    fss styles.content
-                    children [
-                        label [ text "Nome" ]
+                    prop.onSubmit handleSubmit
+                    prop.fss styles.content
+                    prop.children [
+                        label [ prop.text "Nome" ]
                         input [
-                            fss styles.input
-                            placeholder "Insira seu nome completo"
-                            value state.Name
-                            onChange (dispatch << Name)
+                            prop.fss styles.input
+                            prop.placeholder "Insira seu nome completo"
+                            prop.value state.Name
+                            prop.onChange (dispatch << Name)
                         ]
                         nameError
-                        label [ text "Telefone" ]
+                        label [ prop.text "Telefone" ]
                         InputMask.inputMask [
-                            fss styles.input
+                            prop.fss styles.input
                             inputMask.mask "(99)99999-9999"
-                            placeholder "Insira seu telefone e/ou whatsapp"
-                            value state.Phone
-                            onChange (dispatch << Phone)
+                            prop.placeholder "Insira seu telefone e/ou whatsapp"
+                            prop.value state.Phone
+                            prop.onChange (dispatch << Phone)
                         ]
                         phoneError
-                        label [ text "Nome do Animal" ]
+                        label [ prop.text "Nome do Animal" ]
                         input [
-                            fss styles.input
-                            placeholder "Por qual animal você se interessou?"
-                            value state.Animal
-                            onChange (dispatch << Animal)
+                            prop.fss styles.input
+                            prop.placeholder "Por qual animal você se interessou?"
+                            prop.value state.Animal
+                            prop.onChange (dispatch << Animal)
                         ]
                         animalError
-                        label [ text "Mensagem" ]
+                        label [ prop.text "Mensagem" ]
                         textarea [
-                            fss styles.input
-                            placeholder "Escreva sua mensagem"
-                            rows 9
-                            value state.Message
-                            onChange (dispatch << Message)
+                            prop.fss styles.input
+                            prop.placeholder "Escreva sua mensagem"
+                            prop.rows 9
+                            prop.value state.Message
+                            prop.onChange (dispatch << Message)
                         ]
                         messageError
-                        button [ text "Enviar"; type' "submit" ]
+                        button [
+                            prop.text "Enviar"
+                            prop.type' "submit"
+                        ]
                     ]
                 ]
             ]
