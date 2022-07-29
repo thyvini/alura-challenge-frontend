@@ -6,16 +6,20 @@ This template gets you up and running with a simple web app using [Fable](http:/
 
 * [dotnet SDK](https://www.microsoft.com/net/download/core) 2.0.0 or higher
 * [node.js](https://nodejs.org) 10.0.0 or higher
-
+* [json-server](https://www.npmjs.com/package/json-server) (Can be executed with `npx`)
 
 ## Editor
 
 To write and edit your code, you can use either VS Code + [Ionide](http://ionide.io/), Emacs with [fsharp-mode](https://github.com/fsharp/emacs-fsharp-mode), [Rider](https://www.jetbrains.com/rider/) or Visual Studio.
 
-
 ## Development
 
-Before doing anything, start with installing npm dependencies using `npm install`.
+Before doing anything, start with installing npm dependencies using `npm install`,
+then run:
+```bash
+npx json-server --watch db.json
+```
+and create a `.env` file with the variable `SERVER_URL` set to your running `json-server` url.
 
 Then to start development mode with hot module reloading, run:
 ```bash

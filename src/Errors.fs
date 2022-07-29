@@ -33,6 +33,13 @@ type LoginUserError =
             match this with
             | _ -> "E-mail e/ou senha incorretos"
 
+type ProfileEditError =
+    | MissingName
+    interface IErrorUnion with
+        member this.GetMessage() =
+            match this with
+            | MissingName -> "O nome é obrigatório"
+
 type ContactError =
     | MissingName
     | MissingPhone

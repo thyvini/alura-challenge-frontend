@@ -1,23 +1,37 @@
 ﻿module App.Screens
 
 open Browser.Types
-open Browser.Url
 open Feliz
 open Fss
 open App.Components
+open App.Repository
+open Screens.Profile.State
+open Errors
 
 open type Html
 open type prop
 
 let private styles = Screens.Profile.styles
 
+let private repository = LocalRepository()
+
 [<ReactComponent>]
 let Profile () =
-    let avatarUrl, setAvatarUrl =
-        React.useState "img/Usuário.png"
+    let state, dispatch =
+        React.useReducer (updateState, initialState)
 
-    let handleAvatarUrlChange (file: File) =
-        file |> URL.createObjectURL |> setAvatarUrl
+    let errors, setErrors = React.useState []
+
+    let imageOrDefault =
+        state.Image
+        |> Option.defaultValue "img/Usuário.png"
+
+    let strOrDefault str = str |> Option.defaultValue ""
+
+    let handleSubmit (event: Event) =
+        event.preventDefault ()
+        let pipeline = makePipeline setErrors
+        Ok state |> pipeline |> ignore
 
     CommonScaffold(
         div [
@@ -27,14 +41,18 @@ let Profile () =
                     fss styles.description
                     text "Esse é o perfil que aparece para responsáveis ou ONGs que recebem sua mensagem."
                 ]
-                div [
+                Html.form [
+                    onSubmit handleSubmit
                     fss GlobalStyles.FormBox
                     children [
                         h2 "Perfil"
                         label [
                             children [
                                 Html.text "Foto"
-                                img [ fss styles.avatar; src avatarUrl ]
+                                img [
+                                    fss styles.avatar
+                                    src imageOrDefault
+                                ]
                                 p [
                                     fss styles.imageInfo
                                     text "Clique na foto para editar"
@@ -43,7 +61,7 @@ let Profile () =
                                     fss styles.imageInput
                                     type' "file"
                                     accept "image/*"
-                                    onChange handleAvatarUrlChange
+                                    onChange (dispatch << Image << Some)
                                 ]
                             ]
                         ]
@@ -51,24 +69,41 @@ let Profile () =
                         input [
                             fss GlobalStyles.FormBoxTextInput
                             placeholder "Insira seu nome completo"
+                            value state.Name
+                            onChange (dispatch << Name)
                         ]
+                        if errors.Length > 0 then
+                            p [
+                                fss GlobalStyles.ErrorMessage
+                                text (
+                                    printIfError (Some errors[0])
+                                    |> Option.defaultValue ""
+                                )
+                            ]
                         label [ text "Telefone" ]
-                        input [
+                        InputMask.inputMask [
                             fss GlobalStyles.FormBoxTextInput
                             placeholder "Insira seu telefone e/ou whatsapp"
+                            inputMask.mask "(99)99999-9999"
+                            value (state.Phone |> strOrDefault)
+                            onChange (dispatch << Phone)
                         ]
                         label [ text "Cidade" ]
                         input [
                             fss GlobalStyles.FormBoxTextInput
                             placeholder "Insira o nome da sua cidade"
+                            value (state.City |> strOrDefault)
+                            onChange (dispatch << City)
                         ]
                         label [ text "Sobre" ]
                         textarea [
                             fss GlobalStyles.FormBoxTextInput
                             placeholder "Insira uma descrição sobre você"
                             rows 9
+                            value (state.Bio |> strOrDefault)
+                            onChange (dispatch << Bio)
                         ]
-                        button [ text "Salvar" ]
+                        button [ text "Salvar"; type' "submit" ]
                     ]
                 ]
             ]
