@@ -2,10 +2,7 @@
 
 open Feliz
 open Fss
-open App.Validations
-
-open type Html
-open type prop
+open App.GlobalStyles
 
 let private styles =
     Components.PasswordFormInput.styles
@@ -23,34 +20,34 @@ let PasswordFormInput
     let showPassword, setShowPassword =
         React.useState false
 
-    div [
-        fss styles.container
-        children [
-            label [
-                fss GlobalStyles.Label
-                htmlFor inputName
-                text labelText
+    Html.div [
+        prop.fss styles.container
+        prop.children [
+            Html.label [
+                prop.fss GlobalStyles.Label
+                prop.htmlFor inputName
+                prop.text labelText
             ]
-            input [
-                fss GlobalStyles.Input
-                name inputName
-                placeholder inputPlaceholder
-                type' (
+            Html.input [
+                prop.fss GlobalStyles.Input
+                prop.name inputName
+                prop.placeholder inputPlaceholder
+                prop.type' (
                     if showPassword then
                         "text"
                     else
                         "password"
                 )
-                value inputValue
+                prop.value inputValue
                 prop.onChange onChange
             ]
-            button [
-                fss styles.icon
-                type' "button"
-                tabIndex -1
-                children [
-                    i [
-                        className (
+            Html.button [
+                prop.fss styles.icon
+                prop.type' "button"
+                prop.tabIndex -1
+                prop.children [
+                    Html.i [
+                        prop.className (
                             if showPassword then
                                 "fa-lg fa-regular fa-eye-slash"
                             else
@@ -58,14 +55,14 @@ let PasswordFormInput
                         )
                     ]
                 ]
-                onClick (fun _ -> setShowPassword (not showPassword))
+                prop.onClick (fun _ -> setShowPassword (not showPassword))
             ]
             match error with
             | Some e ->
-                p [
-                    fss GlobalStyles.ErrorMessage
-                    text e
+                Html.p [
+                    prop.fss GlobalStyles.ErrorMessage
+                    prop.text e
                 ]
-            | None -> none
+            | None -> Html.none
         ]
     ]

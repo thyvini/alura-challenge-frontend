@@ -1,8 +1,7 @@
 ﻿module App.Components.Header
 
-open App
-open Feliz.style
 open Fss
+open App.MediaQueries
 
 let private container =
     [ Position.relative ]

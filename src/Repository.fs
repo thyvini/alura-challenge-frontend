@@ -1,11 +1,11 @@
 ﻿module App.Repository
 
-open App.Domain
-open App.Dtos.ProfileFormDto
 open Browser.WebStorage
 open Fable.SimpleJson
-open JsModules.BcryptJs
-open Dtos.RegisterUserDto
+open App.Domain
+open App.Dtos.ProfileFormDto
+open App.JsModules.BcryptJs
+open App.Dtos.RegisterUserDto
 
 type LocalRepository() =
     let usersStorageKey = "users"

@@ -2,8 +2,9 @@
 
 open Fss
 open Fss.Types
-open App
-open Design
+open App.Design
+open App.GlobalStyles
+open App.MediaQueries
 
 let private container =
     [ Width.value (vw 100)

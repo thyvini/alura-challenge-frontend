@@ -1,9 +1,8 @@
 ﻿module App.Components.Footer
 
-open App
-open App.Design
 open Fss
-open Fss.Types
+open App.MediaQueries
+open App.Design
 
 let private footer =
     [ Position.absolute

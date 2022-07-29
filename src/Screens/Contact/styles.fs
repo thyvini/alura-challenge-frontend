@@ -1,7 +1,8 @@
 ﻿module App.Screens.Contact
 
 open Fss
-open App
+open App.GlobalStyles
+open App.MediaQueries
 
 let private container =
     [ Width.value (vw 100) ]
@@ -17,7 +18,8 @@ let private description =
 
 let private content = GlobalStyles.FormBox
 
-let private input = GlobalStyles.FormBoxTextInput
+let private input =
+    GlobalStyles.FormBoxTextInput
 
 let styles =
     {| container = container

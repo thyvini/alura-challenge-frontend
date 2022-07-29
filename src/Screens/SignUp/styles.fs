@@ -1,7 +1,7 @@
 ﻿module App.Screens.SignUp
 
 open Fss
-open App
+open App.GlobalStyles
 
 let private container =
     [ Width.value (vw 100)

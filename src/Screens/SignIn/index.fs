@@ -1,16 +1,13 @@
 ﻿module App.Screens
 
+open Browser.Types
 open Feliz
 open Fss
-open Components
-open Screens.SignIn.State
-open App
-open Dtos.LoginUserFormDto
-open Browser.Types
-open LocalRepositoryContext
-
-open type Html
-open type prop
+open App.Components
+open App.Screens.SignIn.State
+open App.Dtos.LoginUserFormDto
+open App.LocalRepositoryContext
+open App.GlobalStyles
 
 let private styles = Screens.SignIn.styles
 
@@ -42,40 +39,40 @@ let SignIn () =
         ("Senha", "Senha", "Crie uma senha", state.Password, (dispatch << Password), None)
 
     UserFormScaffold(
-        div [
-            fss styles.container
-            children [
+        Html.div [
+            prop.fss styles.container
+            prop.children [
                 BlueLogo()
-                p [
-                    fss GlobalStyles.Description
-                    text "Já tem conta? Faça seu login:"
+                Html.p [
+                    prop.fss GlobalStyles.Description
+                    prop.text "Já tem conta? Faça seu login:"
                 ]
                 if errors.Length > 0 then
-                    p [
-                        fss GlobalStyles.ErrorMessage
-                        text "E-mail e/ou senha incorretos"
+                    Html.p [
+                        prop.fss GlobalStyles.ErrorMessage
+                        prop.text "E-mail e/ou senha incorretos"
                     ]
                 Html.form [
-                    onSubmit handleSubmit
-                    children [
-                        div [
-                            fss styles.formBox
-                            children [
+                    prop.onSubmit handleSubmit
+                    prop.children [
+                        Html.div [
+                            prop.fss styles.formBox
+                            prop.children [
                                 StringFormInput emailInputProps
                                 PasswordFormInput passwordInputProps
                             ]
                         ]
-                        a [
-                            fss styles.resetPassword
-                            text "Esqueci minha senha"
+                        Html.a [
+                            prop.fss styles.resetPassword
+                            prop.text "Esqueci minha senha"
                         ]
-                        div [
-                            fss styles.buttonWrapper
-                            children [
-                                button [
-                                    fss styles.button
-                                    type' "submit"
-                                    text "Entrar"
+                        Html.div [
+                            prop.fss styles.buttonWrapper
+                            prop.children [
+                                Html.button [
+                                    prop.fss styles.button
+                                    prop.type' "submit"
+                                    prop.text "Entrar"
                                 ]
                             ]
                         ]

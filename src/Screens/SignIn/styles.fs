@@ -1,9 +1,9 @@
 ﻿module App.Screens.SignIn
 
 open Fss
-open App
-open Design
-open Fss.Types
+open App.Design
+open App.GlobalStyles
+open App.MediaQueries
 
 let private container =
     [ TextAlign.center

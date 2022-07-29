@@ -9,8 +9,7 @@ open Fss
 open App.Components
 open App.Domain
 open App.Api
-
-open type Html
+open App.MediaQueries
 
 let private styles = Screens.Home.styles
 
@@ -42,10 +41,10 @@ let Home () =
         React.useMediaQuery MediaQueries.MobileMediaQueryString
 
     CommonScaffold(
-        div [
+        Html.div [
             prop.fss styles.container
             prop.children [
-                p [
+                Html.p [
                     prop.fss styles.description
                     prop.children [
                         Html.text "Olá!"
@@ -57,38 +56,38 @@ let Home () =
                 | Deferred.HasNotStartedYet
                 | Deferred.InProgress -> Loader()
                 | Deferred.Failed _
-                | Deferred.Resolved (Error _) -> div []
+                | Deferred.Resolved (Error _) -> Html.div []
                 | Deferred.Resolved (Ok animals) ->
-                    div [
+                    Html.div [
                         prop.fss styles.listContainer
                         prop.children (
                             animals
                             |> Seq.map (fun animal ->
-                                div [
+                                Html.div [
                                     prop.key animal.id
                                     prop.fss styles.listItem
                                     prop.children [
-                                        img [
+                                        Html.img [
                                             prop.fss styles.itemImage
                                             prop.src (imageSrc animal.name)
                                             prop.srcset (imageSrcSet animal.name)
                                         ]
-                                        div [
+                                        Html.div [
                                             prop.fss styles.itemContent
                                             prop.children [
-                                                h2 animal.name
-                                                p animal.age
-                                                p animal.size
-                                                p animal.temper
-                                                div [
-                                                    p animal.location
-                                                    a [
+                                                Html.h2 animal.name
+                                                Html.p animal.age
+                                                Html.p animal.size
+                                                Html.p animal.temper
+                                                Html.div [
+                                                    Html.p animal.location
+                                                    Html.a [
                                                         prop.href (Router.format ("animal", animal.id, "contato"))
                                                         prop.children [
-                                                            img [
+                                                            Html.img [
                                                                 prop.src "img/ícone mensagem.svg"
                                                             ]
-                                                            text "Falar com responsável"
+                                                            Html.text "Falar com responsável"
                                                         ]
                                                     ]
                                                 ]

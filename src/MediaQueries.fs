@@ -1,20 +1,21 @@
-﻿[<RequireQualifiedAccess>]
-module App.MediaQueries
+﻿namespace App.MediaQueries
 
-open Fss
+[<RequireQualifiedAccess>]
+module MediaQueries =
+    open Fss
 
-let Mobile =
-    [ Fss.Types.Media.MaxWidth(px 767) ]
+    let Mobile =
+        [ Fss.Types.Media.MaxWidth(px 767) ]
 
-let MobileMediaQueryString =
-    "(max-width: 767px)"
+    let MobileMediaQueryString =
+        "(max-width: 767px)"
 
-let Tablet =
-    [ Fss.Types.Media.MinWidth(px 768)
-      Fss.Types.Media.MaxWidth(px 1023) ]
+    let Tablet =
+        [ Fss.Types.Media.MinWidth(px 768)
+          Fss.Types.Media.MaxWidth(px 1023) ]
 
-let Desktop =
-    [ Fss.Types.Media.MinWidth(px 1024) ]
+    let Desktop =
+        [ Fss.Types.Media.MinWidth(px 1024) ]
 
-let TabletAndDesktop =
-    [ Fss.Types.Media.MinWidth(px 768) ]
+    let TabletAndDesktop =
+        [ Fss.Types.Media.MinWidth(px 768) ]

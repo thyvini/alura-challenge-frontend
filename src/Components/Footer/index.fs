@@ -3,10 +3,7 @@
 open Feliz
 open Feliz.Router
 open Fss
-open LocalRepositoryContext
-
-open type Html
-open type prop
+open App.LocalRepositoryContext
 
 let private styles =
     App.Components.Footer.styles
@@ -18,18 +15,18 @@ let Footer () =
 
     let isLogged = repository.IsLoggedIn()
 
-    footer [
-        fss styles.footer
-        children [
-            p [
-                fss styles.text
-                text "2022 - Desenvolvido por Alura."
+    Html.footer [
+        prop.fss styles.footer
+        prop.children [
+            Html.p [
+                prop.fss styles.text
+                prop.text "2022 - Desenvolvido por Alura."
             ]
             if isLogged then
-                a [
-                    fss styles.logout
-                    text "Logout"
-                    onClick (fun _ ->
+                Html.a [
+                    prop.fss styles.logout
+                    prop.text "Logout"
+                    prop.onClick (fun _ ->
                         repository.Logout()
                         Router.navigate "")
                 ]

@@ -1,13 +1,12 @@
 ﻿module App.Screens.SignUp.State
 
-open App
 open Feliz.Router
-open Validations
-open Railway
-open Repository
-open Dtos.CreateUserFormDto
-open Dtos.RegisterUserDto
-open Errors
+open App.Validations
+open App.Railway
+open App.Repository
+open App.Dtos.CreateUserFormDto
+open App.Dtos.RegisterUserDto
+open App.Errors
 
 type Msg =
     | Email of string

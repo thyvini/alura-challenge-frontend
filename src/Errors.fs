@@ -1,6 +1,5 @@
 ﻿module App.Errors
 
-open Fable.Core
 open Microsoft.FSharp.Reflection
 
 type IErrorUnion =

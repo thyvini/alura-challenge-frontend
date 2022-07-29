@@ -2,9 +2,7 @@
 
 open Feliz
 open Fss
-
-open type Html
-open type prop
+open App.GlobalStyles
 
 let private styles =
     Components.StringFormInput.styles
@@ -20,33 +18,33 @@ let StringFormInput
         onChange: string -> unit,
         error: string option
     ) =
-    div [
-        fss styles.container
-        children [
-            label [
-                fss GlobalStyles.Label
-                htmlFor inputName
-                text labelText
+    Html.div [
+        prop.fss styles.container
+        prop.children [
+            Html.label [
+                prop.fss GlobalStyles.Label
+                prop.htmlFor inputName
+                prop.text labelText
             ]
-            input [
-                fss (
+            Html.input [
+                prop.fss (
                     if isBigOnDesktop then
                         GlobalStyles.Input @ GlobalStyles.DesktopBigInput
                     else
                         GlobalStyles.Input
                 )
-                name inputName
-                placeholder inputPlaceholder
-                type' "text"
-                value inputValue
+                prop.name inputName
+                prop.placeholder inputPlaceholder
+                prop.type' "text"
+                prop.value inputValue
                 prop.onChange onChange
             ]
             match error with
             | Some e ->
-                p [
-                    fss GlobalStyles.ErrorMessage
-                    text e
+                Html.p [
+                    prop.fss GlobalStyles.ErrorMessage
+                    prop.text e
                 ]
-            | None -> none
+            | None -> Html.none
         ]
     ]

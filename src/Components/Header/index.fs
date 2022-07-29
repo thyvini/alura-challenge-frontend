@@ -1,12 +1,9 @@
 ﻿module App.Components
 
+open Feliz
 open Feliz.Router
 open Fss.Feliz
-open Feliz
-open LocalRepositoryContext
-
-open type Html
-open type prop
+open App.LocalRepositoryContext
 
 let private styles =
     Components.Header.styles
@@ -29,52 +26,52 @@ let Header () =
             | None -> "img/Usuário.png"
         | None -> "img/Usuário.png"
 
-    header [
-        fss styles.container
-        children [
-            div [
-                fss styles.navbarContainer
-                children [
-                    nav [
-                        fss styles.navbar
-                        children [
-                            img [
-                                src "img/Logo.png"
-                                fss styles.navbarLogo
+    Html.header [
+        prop.fss styles.container
+        prop.children [
+            Html.div [
+                prop.fss styles.navbarContainer
+                prop.children [
+                    Html.nav [
+                        prop.fss styles.navbar
+                        prop.children [
+                            Html.img [
+                                prop.src "img/Logo.png"
+                                prop.fss styles.navbarLogo
                             ]
-                            a [
-                                href (Router.format "")
-                                fss styles.navLink
-                                children [
-                                    img [
-                                        src "img/Casa.svg"
-                                        fss styles.navLinkImage
+                            Html.a [
+                                prop.href (Router.format "")
+                                prop.fss styles.navLink
+                                prop.children [
+                                    Html.img [
+                                        prop.src "img/Casa.svg"
+                                        prop.fss styles.navLinkImage
                                     ]
                                 ]
                             ]
                             if isLogged then
-                                a [
-                                    href (Router.format "mensagem")
-                                    fss styles.navLink
-                                    children [
-                                        img [
-                                            src "img/Mensagens.svg"
-                                            fss styles.navLinkImage
+                                Html.a [
+                                    prop.href (Router.format "mensagem")
+                                    prop.fss styles.navLink
+                                    prop.children [
+                                        Html.img [
+                                            prop.src "img/Mensagens.svg"
+                                            prop.fss styles.navLinkImage
                                         ]
                                     ]
                                 ]
                         ]
                     ]
                     if isLogged then
-                        a [
-                            fss styles.button
-                            role "button"
-                            tabIndex 0
-                            href (Router.format "perfil")
-                            children [
-                                img [
-                                    fss styles.buttonImage
-                                    src image
+                        Html.a [
+                            prop.fss styles.button
+                            prop.role "button"
+                            prop.tabIndex 0
+                            prop.href (Router.format "perfil")
+                            prop.children [
+                                Html.img [
+                                    prop.fss styles.buttonImage
+                                    prop.src image
                                 ]
                             ]
                         ]

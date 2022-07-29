@@ -4,12 +4,10 @@ open Browser.Types
 open Feliz
 open Fss
 open App.Components
-open Screens.Profile.State
-open Errors
-open LocalRepositoryContext
-
-open type Html
-open type prop
+open App.Screens.Profile.State
+open App.Errors
+open App.LocalRepositoryContext
+open App.GlobalStyles
 
 let private styles = Screens.Profile.styles
 
@@ -38,76 +36,79 @@ let Profile () =
         Ok state |> pipeline |> ignore
 
     CommonScaffold(
-        div [
-            fss styles.container
-            children [
-                p [
-                    fss styles.description
-                    text "Esse é o perfil que aparece para responsáveis ou ONGs que recebem sua mensagem."
+        Html.div [
+            prop.fss styles.container
+            prop.children [
+                Html.p [
+                    prop.fss styles.description
+                    prop.text "Esse é o perfil que aparece para responsáveis ou ONGs que recebem sua mensagem."
                 ]
                 Html.form [
-                    onSubmit handleSubmit
-                    fss GlobalStyles.FormBox
-                    children [
-                        h2 "Perfil"
-                        label [
-                            children [
+                    prop.onSubmit handleSubmit
+                    prop.fss GlobalStyles.FormBox
+                    prop.children [
+                        Html.h2 "Perfil"
+                        Html.label [
+                            prop.children [
                                 Html.text "Foto"
-                                img [
-                                    fss styles.avatar
-                                    src imageOrDefault
+                                Html.img [
+                                    prop.fss styles.avatar
+                                    prop.src imageOrDefault
                                 ]
-                                p [
-                                    fss styles.imageInfo
-                                    text "Clique na foto para editar"
+                                Html.p [
+                                    prop.fss styles.imageInfo
+                                    prop.text "Clique na foto para editar"
                                 ]
-                                input [
-                                    fss styles.imageInput
-                                    type' "file"
-                                    accept "image/*"
-                                    onChange (dispatch << Image << Some)
+                                Html.input [
+                                    prop.fss styles.imageInput
+                                    prop.type' "file"
+                                    prop.accept "image/*"
+                                    prop.onChange (dispatch << Image << Some)
                                 ]
                             ]
                         ]
-                        label [ text "Nome" ]
-                        input [
-                            fss GlobalStyles.FormBoxTextInput
-                            placeholder "Insira seu nome completo"
-                            value state.Name
-                            onChange (dispatch << Name)
+                        Html.label [ prop.text "Nome" ]
+                        Html.input [
+                            prop.fss GlobalStyles.FormBoxTextInput
+                            prop.placeholder "Insira seu nome completo"
+                            prop.value state.Name
+                            prop.onChange (dispatch << Name)
                         ]
                         if errors.Length > 0 then
-                            p [
-                                fss GlobalStyles.ErrorMessage
-                                text (
+                            Html.p [
+                                prop.fss GlobalStyles.ErrorMessage
+                                prop.text (
                                     printIfError (Some errors[0])
                                     |> Option.defaultValue ""
                                 )
                             ]
-                        label [ text "Telefone" ]
+                        Html.label [ prop.text "Telefone" ]
                         InputMask.inputMask [
-                            fss GlobalStyles.FormBoxTextInput
-                            placeholder "Insira seu telefone e/ou whatsapp"
+                            prop.fss GlobalStyles.FormBoxTextInput
+                            prop.placeholder "Insira seu telefone e/ou whatsapp"
                             inputMask.mask "(99)99999-9999"
-                            value (state.Phone |> strOrDefault)
-                            onChange (dispatch << Phone)
+                            prop.value (state.Phone |> strOrDefault)
+                            prop.onChange (dispatch << Phone)
                         ]
-                        label [ text "Cidade" ]
-                        input [
-                            fss GlobalStyles.FormBoxTextInput
-                            placeholder "Insira o nome da sua cidade"
-                            value (state.City |> strOrDefault)
-                            onChange (dispatch << City)
+                        Html.label [ prop.text "Cidade" ]
+                        Html.input [
+                            prop.fss GlobalStyles.FormBoxTextInput
+                            prop.placeholder "Insira o nome da sua cidade"
+                            prop.value (state.City |> strOrDefault)
+                            prop.onChange (dispatch << City)
                         ]
-                        label [ text "Sobre" ]
-                        textarea [
-                            fss GlobalStyles.FormBoxTextInput
-                            placeholder "Insira uma descrição sobre você"
-                            rows 9
-                            value (state.Bio |> strOrDefault)
-                            onChange (dispatch << Bio)
+                        Html.label [ prop.text "Sobre" ]
+                        Html.textarea [
+                            prop.fss GlobalStyles.FormBoxTextInput
+                            prop.placeholder "Insira uma descrição sobre você"
+                            prop.rows 9
+                            prop.value (state.Bio |> strOrDefault)
+                            prop.onChange (dispatch << Bio)
                         ]
-                        button [ text "Salvar"; type' "submit" ]
+                        Html.button [
+                            prop.text "Salvar"
+                            prop.type' "submit"
+                        ]
                     ]
                 ]
             ]

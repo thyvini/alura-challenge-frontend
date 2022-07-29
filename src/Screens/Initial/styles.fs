@@ -1,11 +1,9 @@
 ﻿module App.Screens.Initial
 
-open App
-open Feliz
 open Fss
-open Fss.Types
+open App.MediaQueries
+open App.GlobalStyles
 
-open type style
 
 let private container =
     [ TextAlign.center
@@ -73,8 +71,7 @@ let private illustration =
           Transform.translateX (pct -50)
       ]
       Media.query MediaQueries.Mobile [ Left.value (pct 45) ]
-      Media.query MediaQueries.Desktop [ Bottom.value (px 55) ]
-       ]
+      Media.query MediaQueries.Desktop [ Bottom.value (px 55) ] ]
 
 let styles =
     {| container = container

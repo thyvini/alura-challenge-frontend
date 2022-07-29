@@ -1,8 +1,8 @@
 ﻿module App.Components.Scaffold
 
 open Fss
-open App
 open Fss.Types
+open App.MediaQueries
 
 let private container color =
     [ Position.absolute

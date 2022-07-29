@@ -1,8 +1,9 @@
 ﻿module App.Screens.Profile
 
 open Fss
-open App
-open Design
+open App.Design
+open App.GlobalStyles
+open App.MediaQueries
 
 let private container =
     [ Width.value (vw 100) ]

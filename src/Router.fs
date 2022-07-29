@@ -2,8 +2,8 @@
 
 open Feliz
 open Feliz.Router
-open App
-open LocalRepositoryContext
+open App.LocalRepositoryContext
+open App.Screens
 
 type private LoggedIn =
     | Logged
@@ -38,13 +38,13 @@ let Router () =
         router.onUrlChanged updateUrl
         router.children [
             match currentUrl with
-            | [] -> RedirectIfLogged "home" (Screens.Initial())
-            | [ "cadastro" ] -> RedirectIfLogged "home" (Screens.SignUp())
-            | [ "login" ] -> RedirectIfLogged "home" (Screens.SignIn())
-            | [ "home" ] -> RedirectIfNotLogged "" (Screens.Home())
-            | [ "mensagem" ] -> RedirectIfNotLogged "" (Screens.Contact 0)
-            | [ "animal"; Route.Int id; "contato" ] -> RedirectIfNotLogged "" (Screens.Contact id)
-            | [ "perfil" ] -> Screens.Profile()
+            | [] -> RedirectIfLogged "home" (Initial())
+            | [ "cadastro" ] -> RedirectIfLogged "home" (SignUp())
+            | [ "login" ] -> RedirectIfLogged "home" (SignIn())
+            | [ "home" ] -> RedirectIfNotLogged "" (Home())
+            | [ "mensagem" ] -> RedirectIfNotLogged "" (Contact 0)
+            | [ "animal"; Route.Int id; "contato" ] -> RedirectIfNotLogged "" (Contact id)
+            | [ "perfil" ] -> RedirectIfNotLogged "" (Profile())
             | _ -> ()
         ]
     ]

@@ -4,13 +4,12 @@ open Browser.Types
 open Feliz
 open Feliz.UseMediaQuery
 open Fss
-open Components
-open Screens.SignUp.State
-open Errors
-open LocalRepositoryContext
-
-open type Html
-open type prop
+open App.Components
+open App.Screens.SignUp.State
+open App.Errors
+open App.LocalRepositoryContext
+open App.MediaQueries
+open App.GlobalStyles
 
 let private styles = Screens.SignUp.styles
 
@@ -84,13 +83,13 @@ let SignUp () =
         |> List.map PasswordFormInput
 
     UserFormScaffold(
-        div [
-            fss styles.container
-            children [
+        Html.div [
+            prop.fss styles.container
+            prop.children [
                 BlueLogo()
-                p [
-                    fss GlobalStyles.Description
-                    children [
+                Html.p [
+                    prop.fss GlobalStyles.Description
+                    prop.children [
                         Html.text "Ainda não tem cadastro?"
                         Html.br []
                         if isMobile then Html.br []
@@ -98,19 +97,19 @@ let SignUp () =
                     ]
                 ]
                 Html.form [
-                    fss styles.formBox
-                    method "POST"
-                    onSubmit handleSubmit
-                    children [
+                    prop.fss styles.formBox
+                    prop.method "POST"
+                    prop.onSubmit handleSubmit
+                    prop.children [
                         yield! stringInputs
                         yield! passwordInputs
-                        div [
-                            fss styles.buttonWrapper
-                            children [
-                                button [
-                                    fss styles.button
-                                    type' "submit"
-                                    text "Cadastrar"
+                        Html.div [
+                            prop.fss styles.buttonWrapper
+                            prop.children [
+                                Html.button [
+                                    prop.fss styles.button
+                                    prop.type' "submit"
+                                    prop.text "Cadastrar"
                                 ]
                             ]
                         ]

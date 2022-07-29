@@ -1,11 +1,10 @@
 ﻿module App.Screens.Contact.State
 
-open App
-open Dtos.ContactFormDto
 open Feliz.Router
-open Validations
-open Errors
-open Railway
+open App.Dtos.ContactFormDto
+open App.Validations
+open App.Errors
+open App.Railway
 
 type Msg =
     | Name of string

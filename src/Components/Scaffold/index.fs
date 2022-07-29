@@ -1,14 +1,11 @@
 ﻿module App.Components
 
-open Design
-open App.Components
 open Feliz
 open Feliz.UseMediaQuery
 open Fss
-open Fss.Types
-
-open type prop
-open type Html
+open App.Design
+open App.Components
+open App.MediaQueries
 
 type VectorPosition =
     | VectorLeft
@@ -24,39 +21,39 @@ let private mobileVector vector =
 
 [<ReactComponent>]
 let Scaffold (backgroundColor: string) (hasPaws: bool) (vectorPosition: VectorPosition) (children: ReactElement) =
-    div [
-        fss (styles.container backgroundColor)
+    Html.div [
+        prop.fss (styles.container backgroundColor)
         prop.children [
-            div [
-                fss styles.vectorBox
-                draggable false
+            Html.div [
+                prop.fss styles.vectorBox
+                prop.draggable false
                 prop.children [
-                    img [
-                        src "img/Forma 1.svg"
-                        fss styles.vector1
+                    Html.img [
+                        prop.src "img/Forma 1.svg"
+                        prop.fss styles.vector1
                     ]
                     if hasPaws then
-                        img [
-                            src "img/Patas.svg"
-                            fss styles.paws
+                        Html.img [
+                            prop.src "img/Patas.svg"
+                            prop.fss styles.paws
                         ]
                     match vectorPosition with
                     | VectorLeft ->
-                        img [
-                            src "img/Forma 2.svg"
-                            fss styles.vector2Inverse
+                        Html.img [
+                            prop.src "img/Forma 2.svg"
+                            prop.fss styles.vector2Inverse
                         ]
                     | VectorRight ->
-                        img [
-                            src "img/Forma 2.svg"
-                            fss styles.vector2
+                        Html.img [
+                            prop.src "img/Forma 2.svg"
+                            prop.fss styles.vector2
                         ]
                     | VectorNone -> Html.none
                 ]
             ]
             Header()
-            div [
-                fss styles.content
+            Html.div [
+                prop.fss styles.content
                 prop.children children
             ]
             Footer()

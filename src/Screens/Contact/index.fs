@@ -4,14 +4,13 @@ open Browser.Types
 open Feliz
 open Fss
 open App.Components
-open Screens.Contact.State
-open Errors
-open LocalRepositoryContext
-open Dtos.ContactFormDto
+open App.Screens.Contact.State
+open App.Errors
+open App.LocalRepositoryContext
+open App.Dtos.ContactFormDto
 open App.Domain
 open App.Api
-
-open type Html
+open App.GlobalStyles
 
 let private styles = Screens.Contact.styles
 
@@ -52,7 +51,7 @@ let Contact (id: int) =
         Ok state |> pipeline |> ignore
 
     let errorToP (errorMessage: string) =
-        p [
+        Html.p [
             prop.fss GlobalStyles.ErrorMessage
             prop.text errorMessage
         ]
@@ -75,10 +74,10 @@ let Contact (id: int) =
         tryFindAndDisplay (nameof MissingMessage)
 
     CommonScaffold(
-        div [
+        Html.div [
             prop.fss styles.container
             prop.children [
-                p [
+                Html.p [
                     prop.fss styles.description
                     prop.text "Envie uma mensagem para a pessoa ou instituição que está cuidando do animal:"
                 ]
@@ -86,15 +85,15 @@ let Contact (id: int) =
                     prop.onSubmit handleSubmit
                     prop.fss styles.content
                     prop.children [
-                        label [ prop.text "Nome" ]
-                        input [
+                        Html.label [ prop.text "Nome" ]
+                        Html.input [
                             prop.fss styles.input
                             prop.placeholder "Insira seu nome completo"
                             prop.value state.Name
                             prop.onChange (dispatch << Name)
                         ]
                         nameError
-                        label [ prop.text "Telefone" ]
+                        Html.label [ prop.text "Telefone" ]
                         InputMask.inputMask [
                             prop.fss styles.input
                             inputMask.mask "(99)99999-9999"
@@ -103,16 +102,18 @@ let Contact (id: int) =
                             prop.onChange (dispatch << Phone)
                         ]
                         phoneError
-                        label [ prop.text "Nome do Animal" ]
-                        input [
+                        Html.label [
+                            prop.text "Nome do Animal"
+                        ]
+                        Html.input [
                             prop.fss styles.input
                             prop.placeholder "Por qual animal você se interessou?"
                             prop.value state.Animal
                             prop.onChange (dispatch << Animal)
                         ]
                         animalError
-                        label [ prop.text "Mensagem" ]
-                        textarea [
+                        Html.label [ prop.text "Mensagem" ]
+                        Html.textarea [
                             prop.fss styles.input
                             prop.placeholder "Escreva sua mensagem"
                             prop.rows 9
@@ -120,7 +121,7 @@ let Contact (id: int) =
                             prop.onChange (dispatch << Message)
                         ]
                         messageError
-                        button [
+                        Html.button [
                             prop.text "Enviar"
                             prop.type' "submit"
                         ]

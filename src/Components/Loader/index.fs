@@ -3,6 +3,7 @@
 open Feliz
 open Fss
 open App.Design
+open App.GlobalStyles
 
 let private animation =
     keyframes [

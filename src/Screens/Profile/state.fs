@@ -1,14 +1,13 @@
 ﻿module App.Screens.Profile.State
 
 open System
-open Browser
+open Browser.Url
 open Browser.Types
-open App
-open Dtos.ProfileFormDto
-open Validations
-open Errors
-open Repository
-open Railway
+open App.Dtos.ProfileFormDto
+open App.Validations
+open App.Errors
+open App.Repository
+open App.Railway
 
 type Msg =
     | Name of string
