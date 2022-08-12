@@ -10,7 +10,7 @@ open App.Domain
 module Api =
 
     let private baseUrl =
-        Process.env "SERVER_URL"
+        nodeProcess.env "SERVER_URL"
 
     let loadAnimals () =
         promise {

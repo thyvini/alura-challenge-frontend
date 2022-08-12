@@ -4,8 +4,6 @@ open System
 open Fable.Core
 open Fable.Core.JS
 
-
-
 type IBcryptjs =
     abstract genSaltSync: ?rounds: float * ?minor: string -> string
     abstract genSalt: ?rounds: float * ?callback: (Exception -> string -> unit) -> Promise<string>
