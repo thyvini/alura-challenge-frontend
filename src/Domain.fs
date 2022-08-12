@@ -13,9 +13,9 @@ type UserDetails =
       Bio: string option }
 
 type Animal =
-    { id: int
-      name: string
-      age: string
-      size: string
-      temper: string
-      location: string }
+    { Id: int
+      Name: string
+      Age: string
+      Size: string
+      Temper: string
+      Location: string }

@@ -38,7 +38,7 @@ let Contact (id: int) =
                 let! animal = Api.findAnimalById id
 
                 match animal with
-                | Ok animal -> Animal animal.name |> dispatch
+                | Ok animal -> Animal animal.Name |> dispatch
                 | Error _ -> ()
         }
         |> Async.Start)

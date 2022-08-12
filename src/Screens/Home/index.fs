@@ -55,8 +55,8 @@ let Home () =
                 match animalsDefer with
                 | Deferred.HasNotStartedYet
                 | Deferred.InProgress -> Loader()
-                | Deferred.Failed _
-                | Deferred.Resolved (Error _) -> Html.div []
+                | Deferred.Failed e -> Html.div e.Message
+                | Deferred.Resolved (Error e) -> Html.div e.Message
                 | Deferred.Resolved (Ok animals) ->
                     Html.div [
                         prop.fss styles.listContainer
@@ -64,25 +64,25 @@ let Home () =
                             animals
                             |> Seq.map (fun animal ->
                                 Html.div [
-                                    prop.key animal.id
+                                    prop.key animal.Id
                                     prop.fss styles.listItem
                                     prop.children [
                                         Html.img [
                                             prop.fss styles.itemImage
-                                            prop.src (imageSrc animal.name)
-                                            prop.srcset (imageSrcSet animal.name)
+                                            prop.src (imageSrc animal.Name)
+                                            prop.srcset (imageSrcSet animal.Name)
                                         ]
                                         Html.div [
                                             prop.fss styles.itemContent
                                             prop.children [
-                                                Html.h2 animal.name
-                                                Html.p animal.age
-                                                Html.p animal.size
-                                                Html.p animal.temper
+                                                Html.h2 animal.Name
+                                                Html.p animal.Age
+                                                Html.p animal.Size
+                                                Html.p animal.Temper
                                                 Html.div [
-                                                    Html.p animal.location
+                                                    Html.p animal.Location
                                                     Html.a [
-                                                        prop.href (Router.format ("animal", animal.id, "contato"))
+                                                        prop.href (Router.format ("animal", animal.Id, "contato"))
                                                         prop.children [
                                                             Html.img [
                                                                 prop.src "img/ícone mensagem.svg"

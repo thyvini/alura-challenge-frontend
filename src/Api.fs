@@ -1,12 +1,13 @@
 ﻿namespace App.Api
 
+open Fable.Core
+open Thoth.Fetch
+open Thoth.Json
+open App.JsModules.NodeProcess
+open App.Domain
+
 [<RequireQualifiedAccess>]
 module Api =
-
-    open Fetch
-    open Fable.Core
-    open App.JsModules.NodeProcess
-    open App.Domain
 
     let private baseUrl =
         Process.env "SERVER_URL"
@@ -14,20 +15,16 @@ module Api =
     let loadAnimals () =
         promise {
             do! Promise.sleep 1500
-            let! response = fetch $"{baseUrl}/animals" []
-
-            let! data = response.json<Animal seq> ()
-
-            return Ok data
+            let! response = Fetch.get<_, Animal list>($"{baseUrl}/animals", caseStrategy = CamelCase)
+            return Ok response
         }
         |> Promise.catch Error
         |> Async.AwaitPromise
 
     let findAnimalById id =
         promise {
-            let! response = fetch $"{baseUrl}/animals/{id}" []
-            let! data = response.json<Animal> ()
-            return Ok data
+            let! response = Fetch.get<_, Animal>($"{baseUrl}/animals/{id}", caseStrategy = CamelCase)
+            return Ok response
         }
         |> Promise.catch Error
         |> Async.AwaitPromise
