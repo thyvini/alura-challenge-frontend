@@ -20,7 +20,7 @@ let Footer () =
         prop.children [
             Html.p [
                 prop.fss styles.text
-                prop.text "2022 - Desenvolvido por Alura."
+                prop.text "2022 - Desenvolvido por Thyago."
             ]
             if isLogged then
                 Html.a [

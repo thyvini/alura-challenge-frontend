@@ -10,7 +10,7 @@ type private LoggedIn =
     | NotLogged
 
 [<ReactComponent>]
-let private RedirectIf (loggedOrNot: LoggedIn) (route: string) (children: ReactElement) =
+let private redirectIf (loggedOrNot: LoggedIn) (route: string) (children: ReactElement) =
     let repository =
         React.useContext localRepositoryContext
 
@@ -24,10 +24,10 @@ let private RedirectIf (loggedOrNot: LoggedIn) (route: string) (children: ReactE
     | _, _ -> React.fragment [ children ]
 
 [<ReactComponent>]
-let private RedirectIfLogged route children = RedirectIf Logged route children
+let private redirectIfLogged route children = redirectIf Logged route children
 
 [<ReactComponent>]
-let private RedirectIfNotLogged route children = RedirectIf NotLogged route children
+let private redirectIfNotLogged route children = redirectIf NotLogged route children
 
 [<ReactComponent>]
 let Router () =
@@ -38,13 +38,13 @@ let Router () =
         router.onUrlChanged updateUrl
         router.children [
             match currentUrl with
-            | [] -> RedirectIfLogged "home" (Initial())
-            | [ "cadastro" ] -> RedirectIfLogged "home" (SignUp())
-            | [ "login" ] -> RedirectIfLogged "home" (SignIn())
-            | [ "home" ] -> RedirectIfNotLogged "" (Home())
-            | [ "mensagem" ] -> RedirectIfNotLogged "" (Contact 0)
-            | [ "animal"; Route.Int id; "contato" ] -> RedirectIfNotLogged "" (Contact id)
-            | [ "perfil" ] -> RedirectIfNotLogged "" (Profile())
+            | [] -> Initial() |> redirectIfLogged "home"
+            | [ "cadastro" ] -> SignUp() |> redirectIfLogged "home"
+            | [ "login" ] -> SignIn() |> redirectIfLogged "home"
+            | [ "home" ] -> Home() |> redirectIfNotLogged ""
+            | [ "mensagem" ] -> Contact 0 |> redirectIfNotLogged ""
+            | [ "animal"; Route.Int id; "contato" ] -> Contact id |> redirectIfNotLogged ""
+            | [ "perfil" ] -> Profile() |> redirectIfNotLogged ""
             | _ -> ()
         ]
     ]
