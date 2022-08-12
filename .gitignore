@@ -205,4 +205,3 @@ out
 *.fs.js
 *.fs.js.map
 .env
-dist/
